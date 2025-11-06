@@ -1,446 +1,347 @@
-# How to Document Your Repository with Sphinx
+# Scientific Python Documentation Template for Lab Users
 
-A comprehensive tutorial for creating professional scientific Python documentation using Sphinx, complete with equations, cross-references, API documentation, and automated GitHub Pages deployment.
+A beginner-friendly template for Python projects in scientific labs, showing how to document code with Sphinx and integrate with eLabFTW for complete experimental traceability.
 
-## Overview
+## 🎯 What is This?
 
-This repository demonstrates how to build publication-quality documentation for scientific Python projects. It provides a complete working example with:
+This repository provides a **complete working example** for scientists and lab users who want to:
 
-- ✅ **NumPy-style docstrings** for clean, readable API documentation
-- ✅ **Mathematical equations** rendered with LaTeX/MathJax
-- ✅ **Cross-references** between documentation sections and code
-- ✅ **External links** to resources and related work
-- ✅ **Automated deployment** to GitHub Pages via GitHub Actions
-- ✅ **Professional theme** using Read the Docs styling
+1. **Document their Python analysis scripts** professionally using Sphinx
+2. **Link code to lab experiments** managed in eLabFTW (electronic lab notebook)
+3. **Create reproducible workflows** from experiment → data → analysis → results
+4. **Deploy documentation** automatically to GitHub Pages
 
-Perfect for researchers, data scientists, and developers who want to document their Python code professionally.
+Perfect for scientists, lab managers, and students starting with Python, GitHub, and modern lab data management.
 
-## Features
+## 🔬 Why Use This Template?
 
-### 📚 Complete Documentation Stack
+### Traditional Lab Workflow (Without Integration)
+❌ Lab notebook entries disconnected from data files  
+❌ Analysis scripts scattered across computers  
+❌ No clear link between experiments and results  
+❌ Hard to reproduce analyses months later  
+❌ Difficult to share methods with colleagues  
 
-- **Sphinx** with autodoc, napoleon, viewcode, and mathjax extensions
-- **Read the Docs theme** for clean, professional appearance
-- **Automatic API generation** from Python docstrings
-- **GitHub Actions workflow** for continuous deployment
+### Modern Integrated Workflow (With This Template)
+✅ **eLabFTW** stores experiment protocols and raw data  
+✅ **Python scripts** reference eLabFTW experiment IDs  
+✅ **Documentation** explains methods and links to experiments  
+✅ **GitHub** tracks code versions and changes  
+✅ **Automatic deployment** keeps docs up-to-date  
 
-### 🔢 Scientific Documentation Support
+## 🚀 Quick Start
 
-- LaTeX equations with MathJax rendering
-- NumPy-style docstring format
-- Tables, figures, and code blocks
-- Cross-references and citations
+### Prerequisites
 
-### 🤖 Automated Deployment
+- Python 3.7 or higher
+- Basic familiarity with command line
+- (Optional) Access to an eLabFTW instance for experiment tracking
 
-- Builds automatically on push to main/master
-- Deploys to GitHub Pages
-- No manual intervention required
-- Live at: https://b-wie.github.io/how_to_document_your_reposiory_with_sphinx/
+### Installation
 
-## Quick Start
+1. **Clone or fork this repository**:
+   ```bash
+   git clone https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx.git
+   cd how_to_document_your_reposiory_with_sphinx
+   ```
 
-### 1. Install Dependencies
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+3. **Build the documentation locally**:
+   ```bash
+   cd docs
+   make html
+   ```
+
+4. **View the documentation**:
+   Open `docs/build/html/index.html` in your web browser
+
+### Try the Example
+
+Run the example HPLC analysis script:
 ```bash
-pip install -r requirements.txt
+python src/hplc_analysis.py
 ```
 
-This installs:
-- `sphinx>=7.0.0` - Documentation generator
-- `sphinx-rtd-theme>=1.3.0` - Read the Docs theme
+This analyzes a sample chromatogram and demonstrates eLabFTW integration patterns.
 
-### 2. Build Documentation Locally
-
-```bash
-cd docs
-make html
-```
-
-### 3. View Documentation
-
-Open `docs/build/html/index.html` in your web browser.
-
-## Repository Structure
+## 📁 Repository Structure
 
 ```
 .
+├── data/
+│   └── sample_hplc_chromatogram.txt    # Example HPLC data with eLabFTW references
 ├── src/
-│   └── sample_module.py      # Example Python module with NumPy-style docstrings
+│   ├── hplc_analysis.py                # HPLC analysis with eLabFTW integration
+│   └── sample_module.py                # General scientific computing examples
 ├── docs/
 │   ├── source/
-│   │   ├── conf.py                  # Sphinx configuration
-│   │   ├── index.rst                # Documentation homepage
-│   │   ├── experiment_setup.rst     # Example: equations, tables, links
-│   │   ├── publication_context.rst  # Example: citations, repositories
-│   │   ├── _static/                 # Static files (CSS, images, etc.)
-│   │   └── _templates/              # Custom templates
-│   ├── Makefile                     # Build commands (Unix)
-│   ├── make.bat                     # Build commands (Windows)
-│   └── README.md                    # Documentation deployment info
-├── .github/
-│   └── workflows/
-│       └── deploy-docs.yml          # GitHub Actions deployment workflow
-├── requirements.txt                  # Python dependencies
-└── README.md                         # This file
+│   │   ├── conf.py                     # Sphinx configuration
+│   │   ├── index.rst                   # Documentation homepage
+│   │   ├── elabftw_integration.rst     # eLabFTW workflow guide
+│   │   └── best_practices.rst          # Documentation best practices
+│   └── Makefile                        # Build commands
+├── README.md                           # This file
+├── CONTRIBUTING.md                     # Contribution guidelines
+├── LICENSE.md                          # MIT license
+└── requirements.txt                    # Python dependencies
 ```
 
-## Tutorial: Creating Your Own Documentation
+## 🔗 eLabFTW Integration: Complete Workflow
 
-### Step 1: Set Up Sphinx
+### What is eLabFTW?
 
-If starting from scratch, initialize Sphinx in your repository:
+[eLabFTW](https://www.elabftw.net/) is a free, open-source electronic lab notebook (ELN) designed for research labs. It helps you:
+- Document experiments with protocols and observations
+- Manage equipment and resources
+- Store and organize research data
+- Ensure compliance and traceability
 
-```bash
-mkdir docs
-cd docs
-sphinx-quickstart
+### The Integrated Workflow
+
+```
+┌─────────────┐
+│  1. eLabFTW │  Document experiment protocol and equipment
+│  Experiment │  Record parameters, upload raw data files
+└──────┬──────┘
+       │ Persistent ID: experiment #67890
+       ↓
+┌─────────────┐
+│  2. GitHub  │  Store analysis code in version control
+│  Repository │  Scripts reference eLabFTW experiment IDs
+└──────┬──────┘
+       │ 
+       ↓
+┌─────────────┐
+│  3. Python  │  Run analysis with eLabFTW references in code
+│  Analysis   │  Load data, process, generate results
+└──────┬──────┘
+       │
+       ↓
+┌─────────────┐
+│  4. Results │  Upload results back to eLabFTW
+│  Back to    │  Link GitHub commit for full traceability
+│  eLabFTW    │  Document analysis parameters used
+└─────────────┘
 ```
 
-Answer the prompts:
-- Separate source and build directories? **Yes**
-- Project name: **Your Project Name**
-- Author name: **Your Name**
-- Project version: **1.0.0**
-- Project language: **en**
+### Example: Referencing eLabFTW in Your Code
 
-### Step 2: Configure Sphinx Extensions
+**In your data file header** (`data/sample_hplc_chromatogram.txt`):
+```
+# Experiment: eLabFTW #67890 (https://your-elabftw-instance.org/experiments.php?mode=view&id=67890)
+# Equipment: HPLC-UV (eLabFTW ID: EQUIP-12345)
+# Date: 2025-01-15
+# Method: See eLabFTW experiment record for complete details
+```
 
-Edit `docs/source/conf.py` and add these extensions:
-
+**In your Python script** (`src/hplc_analysis.py`):
 ```python
-extensions = [
-    'sphinx.ext.autodoc',      # Auto-generate API docs from docstrings
-    'sphinx.ext.napoleon',     # Support for NumPy-style docstrings
-    'sphinx.ext.viewcode',     # Add links to source code
-    'sphinx.ext.mathjax',      # Render LaTeX equations
-]
+"""
+HPLC Analysis Script
+
+eLabFTW References:
+- Experiment: https://your-elabftw-instance.org/experiments.php?mode=view&id=67890
+- Equipment: https://your-elabftw-instance.org/database.php?mode=view&id=EQUIP-12345
+"""
+
+def analyze_chromatogram(filepath):
+    """Analyze HPLC data. See eLabFTW experiment for method details."""
+    # Your analysis code here
+    pass
 ```
 
-Add your source code directory to the Python path:
-
-```python
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../../src'))
-```
-
-Set the theme:
-
-```python
-html_theme = 'sphinx_rtd_theme'
-```
-
-### Step 3: Write NumPy-Style Docstrings
-
-Document your Python code using NumPy-style docstrings:
-
-```python
-def calculate_mean(data):
-    """
-    Calculate the arithmetic mean of a dataset.
-    
-    Parameters
-    ----------
-    data : array_like
-        Input data as a 1D array or list.
-        
-    Returns
-    -------
-    float
-        The mean of the input data.
-        
-    Examples
-    --------
-    >>> calculate_mean([1, 2, 3, 4, 5])
-    3.0
-    
-    Notes
-    -----
-    Uses NumPy's mean implementation for efficiency.
-    """
-    return np.mean(data)
-```
-
-### Step 4: Create Documentation Pages
-
-Create `.rst` files in `docs/source/` for your documentation:
-
-**Example: docs/source/api.rst**
+**In your documentation** (`docs/source/elabftw_integration.rst`):
 ```rst
-API Documentation
-=================
+This analysis corresponds to eLabFTW experiment #67890:
+https://your-elabftw-instance.org/experiments.php?mode=view&id=67890
 
-.. automodule:: your_module
-   :members:
-   :undoc-members:
-   :show-inheritance:
+For equipment specifications and calibration records, see:
+https://your-elabftw-instance.org/database.php?mode=view&id=EQUIP-12345
 ```
 
-**Adding Mathematical Equations**
-```rst
-The formula is:
+### Benefits of This Approach
 
-.. math::
-   
-   E = mc^2
+1. **Complete Traceability**: Direct links from results back to experiments
+2. **Reproducibility**: All information needed to repeat analysis is linked
+3. **Collaboration**: Team members can find related experiments easily
+4. **Compliance**: Meets data integrity requirements (FDA 21 CFR Part 11, GLP)
+5. **Long-term Accessibility**: Persistent IDs survive file reorganization
 
-where :math:`E` is energy, :math:`m` is mass, and :math:`c` is the speed of light.
-```
+## 📚 Documentation with Sphinx
 
-**Adding Cross-References**
-```rst
-See :doc:`other_page` for more information.
+### Why Sphinx?
 
-Use :func:`your_module.function_name` to reference a function.
-```
+Sphinx is the documentation tool used by most major Python projects (NumPy, SciPy, pandas). It:
+- Generates beautiful HTML documentation from simple text files
+- Automatically creates API documentation from docstrings
+- Supports mathematical equations (LaTeX)
+- Integrates with GitHub Pages for free hosting
+- Is the industry standard for Python documentation
 
-### Step 5: Update the Table of Contents
+### Documentation Structure
 
-Add your pages to `docs/source/index.rst`:
+This template includes:
 
-```rst
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-   
-   installation
-   usage
-   api
-```
+1. **API Documentation**: Automatically generated from Python docstrings
+2. **eLabFTW Integration Guide**: How to link experiments and code
+3. **Best Practices**: Tips for scientific documentation
+4. **Examples**: Working code with sample data
 
-### Step 6: Build and Test
+### Building Documentation
 
+**Local build** (for testing):
 ```bash
 cd docs
-make clean
 make html
 ```
 
-Check for warnings or errors and fix them.
+**Automatic deployment** (via GitHub Actions):
+- Push to `main` or `master` branch
+- GitHub Actions automatically builds and deploys to GitHub Pages
+- View at: `https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/`
 
-### Step 7: Set Up GitHub Actions Deployment
+See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for setup instructions.
 
-Create `.github/workflows/deploy-docs.yml`:
+## 🧪 Example: HPLC Data Analysis
 
-```yaml
-name: Deploy Sphinx Documentation
+The repository includes a complete example of HPLC chromatogram analysis:
 
-on:
-  push:
-    branches:
-      - main
-      - master
-  workflow_dispatch:
+### Features Demonstrated
 
-permissions:
-  contents: write
+- Loading data from text files with eLabFTW references
+- Peak detection and integration algorithms
+- Chromatographic calculations (resolution, retention time)
+- Comprehensive NumPy-style docstrings
+- eLabFTW integration in comments and documentation
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-    
-    - name: Build documentation
-      run: |
-        cd docs
-        make html
-    
-    - name: Add .nojekyll
-      run: touch docs/build/html/.nojekyll
-    
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/build/html
+### Running the Example
+
+```bash
+python src/hplc_analysis.py
 ```
 
-### Step 8: Enable GitHub Pages
-
-1. Go to your repository on GitHub
-2. Click **Settings** → **Pages**
-3. Under **Source**, select **Deploy from a branch**
-4. Select branch **gh-pages** and folder **/ (root)**
-5. Click **Save**
-
-Wait a few minutes, then visit:
+Output:
 ```
-https://<username>.github.io/<repository>/
-```
+HPLC Chromatogram Analysis
+==================================================
+eLabFTW Experiment: https://your-elabftw-instance.org/experiments.php?mode=view&id=67890
+eLabFTW Equipment: https://your-elabftw-instance.org/database.php?mode=view&id=EQUIP-12345
 
-## Adding Publication Context
+File: data/sample_hplc_chromatogram.txt
+Data points: 101
+Time range: 0.00 - 10.00 min
 
-### Citations
+Detected 2 peaks:
+Peak 1: RT=2.10 min, Height=98.7 mAU
+Peak 2: RT=5.70 min, Height=122.3 mAU
 
-Include citations in your documentation:
-
-```rst
-Citation
---------
-
-.. code-block:: bibtex
-   
-   @article{author2025,
-     title={Your Paper Title},
-     author={Author Name},
-     journal={Journal Name},
-     year={2025}
-   }
+Peak Resolution: Rs = 1.71
+==================================================
 ```
 
-### Repository Links
+### Adapting for Your Needs
 
-Link to your code:
+This example can be adapted for:
+- **GC-MS analysis**: Modify for mass spectrometry data
+- **UV-Vis spectroscopy**: Change to wavelength scans
+- **Titration curves**: Adapt for pH/volume data
+- **Enzyme kinetics**: Modify for rate calculations
+- **Any instrument data**: Follow the same integration pattern
 
-```rst
-* Repository: https://github.com/username/repository
-* Documentation: https://username.github.io/repository/
-* Source Code: `src/module.py <../../../src/module.py>`_
-```
+## 🎓 For Beginners
 
-### External Resources
+### New to Python?
 
-```rst
-Additional Resources
---------------------
+- [Python Tutorial](https://docs.python.org/3/tutorial/)
+- [NumPy Quickstart](https://numpy.org/doc/stable/user/quickstart.html)
+- [Python for Chemists](https://www.pythonforchemists.org/)
 
-* `NumPy Documentation <https://numpy.org/doc/>`_
-* `Sphinx Documentation <https://www.sphinx-doc.org/>`_
-* `Python Scientific Lecture Notes <https://scipy-lectures.org/>`_
-```
+### New to Git/GitHub?
 
-## Documentation Best Practices
+- [GitHub Skills](https://skills.github.com/)
+- [Git Basics](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics)
+- [GitHub Docs](https://docs.github.com/en)
 
-### For Code Documentation
+### New to Sphinx?
 
-- ✅ Use NumPy-style docstrings for all public functions and classes
-- ✅ Include type hints in function signatures
-- ✅ Provide examples in docstrings with expected outputs
-- ✅ Document parameters, return values, and exceptions
-- ✅ Add mathematical notation where relevant
-- ✅ Link to related functions and classes
-
-### For Narrative Documentation
-
-- ✅ Start with installation instructions
-- ✅ Provide quick start examples
-- ✅ Explain the scientific context and methodology
-- ✅ Include usage examples with code blocks
-- ✅ Link to external resources and references
-- ✅ Maintain a clear structure with table of contents
-
-### For Maintenance
-
-- ✅ Build documentation locally before committing
-- ✅ Check for broken links and references
-- ✅ Update docs when changing APIs
-- ✅ Version documentation with code releases
-- ✅ Test examples to ensure they work
-
-## Example: Sample Module
-
-This repository includes `src/sample_module.py` demonstrating:
-
-- NumPy-style docstrings with full parameter documentation
-- Mathematical equations in docstrings
-- Usage examples
-- Type hints
-- Comprehensive function and class documentation
-
-See the [live documentation](https://b-wie.github.io/how_to_document_your_reposiory_with_sphinx/) for the rendered result.
-
-## Troubleshooting
-
-### "Module not found" when building
-
-Ensure `sys.path` is configured in `conf.py`:
-
-```python
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../../src'))
-```
-
-### Equations not rendering
-
-Add `sphinx.ext.mathjax` to extensions in `conf.py`.
-
-### Cross-references broken
-
-- Check that target files exist and are in the toctree
-- Use correct syntax: `:doc:`page`` (without `.rst`)
-- For code: `:func:`module.function`` or `:class:`module.ClassName``
-
-### GitHub Pages not updating
-
-- Check Actions tab for workflow failures
-- Verify `gh-pages` branch exists
-- Ensure Pages is enabled in repository settings
-- Wait a few minutes after deployment
-
-## Resources
-
-### Sphinx Documentation
-
-- [Sphinx Official Documentation](https://www.sphinx-doc.org/)
+- [Sphinx Tutorial](https://www.sphinx-doc.org/en/master/tutorial/)
 - [reStructuredText Primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
-- [Sphinx Extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
+- [NumPy Docstring Guide](https://numpydoc.readthedocs.io/)
 
-### Python Documentation
+### New to eLabFTW?
 
-- [NumPy Docstring Guide](https://numpydoc.readthedocs.io/en/latest/format.html)
-- [PEP 257 – Docstring Conventions](https://www.python.org/dev/peps/pep-0257/)
-- [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
+- [eLabFTW Documentation](https://doc.elabftw.net/)
+- [eLabFTW Demo](https://demo.elabftw.net/)
+- [Setting up eLabFTW](https://doc.elabftw.net/install.html)
 
-### Themes and Styling
+## 🔒 Best Practices
 
-- [Read the Docs Theme](https://sphinx-rtd-theme.readthedocs.io/)
-- [Sphinx Themes Gallery](https://sphinx-themes.org/)
-- [Furo Theme](https://pradyunsg.me/furo/)
+### Do NOT Store in GitHub:
 
-### Scientific Python
+- ❌ Sensitive experimental data (use eLabFTW)
+- ❌ Large raw data files (link to eLabFTW instead)
+- ❌ Patient/subject information (privacy concerns)
+- ❌ Proprietary information (use private repos if needed)
 
-- [NumPy Documentation](https://numpy.org/doc/)
-- [SciPy Lectures](https://scipy-lectures.org/)
-- [Scientific Python Lectures](https://lectures.scientific-python.org/)
+### DO Store in GitHub:
 
-## Contributing
+- ✅ Analysis scripts and code
+- ✅ Documentation
+- ✅ Small example/test datasets
+- ✅ Configuration files
+- ✅ Requirements and dependencies
 
-Contributions are welcome! To contribute:
+### Store in eLabFTW:
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Build and test documentation locally
-5. Submit a pull request
+- 📔 Experiment protocols and procedures
+- 📊 Raw data files from instruments
+- 🔧 Equipment specifications and maintenance logs
+- 📝 Observations and lab notes
+- 📎 Supporting documents and images
 
-## License
+## 🤝 Contributing
 
-This tutorial repository is provided as an educational resource for the scientific Python community.
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- How to set up a development environment
+- Code style guidelines
+- Documentation standards
+- Pull request process
 
-## Acknowledgments
+All skill levels welcome—this is a learning-friendly project!
 
-This documentation tutorial builds upon best practices from:
+## 📄 License
 
-- The NumPy and SciPy documentation teams
-- The Sphinx development community
-- The Read the Docs project
+This project is licensed under the MIT License - see [LICENSE.md](LICENSE.md) for details.
+
+## 🙏 Acknowledgments
+
+This template builds on best practices from:
+- The NumPy and SciPy documentation communities
+- The Sphinx and Read the Docs projects
+- The eLabFTW development team
 - Scientific Python package maintainers
+- Research software engineering community
 
-## Questions?
+## 📖 Live Documentation
 
-- 📖 [View the live documentation](https://b-wie.github.io/how_to_document_your_reposiory_with_sphinx/)
-- 🐛 [Report issues on GitHub](https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/issues)
-- 💬 [Ask questions in discussions](https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/discussions)
+View the full documentation at:
+**https://b-wie.github.io/how_to_document_your_reposiory_with_sphinx/**
+
+## ❓ Questions or Issues?
+
+- 📖 Check the [documentation](https://b-wie.github.io/how_to_document_your_reposiory_with_sphinx/)
+- 💬 Start a [discussion](https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/discussions)
+- 🐛 Report [issues](https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/issues)
+- 🤝 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to help
+
+## 🌟 Star This Repository
+
+If you find this helpful, give it a star! It helps others discover this resource.
+
+---
+
+**Made with ❤️ for the scientific Python community**
