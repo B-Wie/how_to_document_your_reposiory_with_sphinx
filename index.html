@@ -1,0 +1,1052 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scientific Python Documentation with eLabFTW Integration &mdash; Scientific Python Documentation with eLabFTW 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="eLabFTW Integration Guide" href="elabftw_integration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Scientific Python Documentation with eLabFTW
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="elabftw_integration.html">eLabFTW Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Documentation Best Practices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Scientific Python Documentation with eLabFTW</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Scientific Python Documentation with eLabFTW Integration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scientific-python-documentation-with-elabftw-integration">
+<h1>Scientific Python Documentation with eLabFTW Integration<a class="headerlink" href="#scientific-python-documentation-with-elabftw-integration" title="Link to this heading"></a></h1>
+<p>Welcome! This repository provides a <strong>beginner-friendly template</strong> for Python projects in scientific labs, demonstrating how to create professional documentation with Sphinx and integrate with eLabFTW electronic lab notebooks for complete experimental traceability.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="elabftw_integration.html">eLabFTW Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#what-is-elabftw">What is eLabFTW?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#why-integrate-elabftw-with-github">Why Integrate eLabFTW with GitHub?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#the-integrated-workflow">The Integrated Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#persistent-references-ids-vs-urls">Persistent References: IDs vs URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#example-complete-workflow">Example: Complete Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#api-integration-advanced">API Integration (Advanced)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#security-considerations">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#compliance-and-regulations">Compliance and Regulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#tips-for-lab-implementation">Tips for Lab Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#further-resources">Further Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elabftw_integration.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Documentation Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#why-documentation-matters">Why Documentation Matters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#documentation-types">Documentation Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#writing-docstrings">Writing Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#writing-user-guides">Writing User Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#using-sphinx">Using Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#organizing-documentation">Organizing Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#elabftw-integration-in-docs">eLabFTW Integration in Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#version-control-for-documentation">Version Control for Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#common-mistakes-to-avoid">Common Mistakes to Avoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#tools-and-resources">Tools and Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#example-documentation-checklist">Example Documentation Checklist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices.html#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="what-you-ll-learn">
+<h2>What You’ll Learn<a class="headerlink" href="#what-you-ll-learn" title="Link to this heading"></a></h2>
+<p>This template demonstrates:</p>
+<ul class="simple">
+<li><p>📖 <strong>Professional Documentation</strong>: Using Sphinx to create beautiful, searchable docs</p></li>
+<li><p>🔗 <strong>eLabFTW Integration</strong>: Linking code to experiment records for full traceability</p></li>
+<li><p>🧪 <strong>Complete Workflows</strong>: From lab experiment → data → analysis → results</p></li>
+<li><p>🤝 <strong>Best Practices</strong>: Industry-standard approaches for scientific computing</p></li>
+<li><p>🚀 <strong>Automated Deployment</strong>: Publishing docs to GitHub Pages automatically</p></li>
+</ul>
+<p>Perfect for scientists, students, and lab users starting with Python, GitHub, and modern lab data management.</p>
+</section>
+<section id="why-this-template">
+<h2>Why This Template?<a class="headerlink" href="#why-this-template" title="Link to this heading"></a></h2>
+<section id="traditional-lab-workflow-problems">
+<h3>Traditional Lab Workflow Problems<a class="headerlink" href="#traditional-lab-workflow-problems" title="Link to this heading"></a></h3>
+<p>❌ Lab notebook entries disconnected from analysis code
+❌ Data files scattered across computers
+❌ No clear link between experiments and results
+❌ Hard to reproduce analyses months later
+❌ Methods sections written from memory</p>
+</section>
+<section id="modern-integrated-solution">
+<h3>Modern Integrated Solution<a class="headerlink" href="#modern-integrated-solution" title="Link to this heading"></a></h3>
+<p>✅ <strong>eLabFTW</strong> stores experiment protocols, equipment info, and raw data
+✅ <strong>GitHub</strong> manages analysis code with full version history
+✅ <strong>Python scripts</strong> reference eLabFTW experiment IDs directly
+✅ <strong>Sphinx docs</strong> explain methods and link everything together
+✅ <strong>Automated publishing</strong> keeps documentation current</p>
+<p><strong>Result</strong>: Complete traceability from experiment to publication.</p>
+</section>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Clone the repository</strong>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx.git
+<span class="nb">cd</span><span class="w"> </span>how_to_document_your_reposiory_with_sphinx
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Install dependencies</strong>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Try the example</strong>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/hplc_analysis.py
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Build the documentation</strong>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docs
+make<span class="w"> </span>html
+</pre></div>
+</div>
+<p>Then open <code class="docutils literal notranslate"><span class="pre">docs/build/html/index.html</span></code> in your browser.</p>
+</section>
+<section id="example-hplc-chromatogram-analysis">
+<h2>Example: HPLC Chromatogram Analysis<a class="headerlink" href="#example-hplc-chromatogram-analysis" title="Link to this heading"></a></h2>
+<p>This repository includes a complete HPLC analysis example demonstrating eLabFTW integration:</p>
+<section id="loading-data-with-elabftw-references">
+<h3>Loading Data with eLabFTW References<a class="headerlink" href="#loading-data-with-elabftw-references" title="Link to this heading"></a></h3>
+<p>The sample data file includes eLabFTW experiment references:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># HPLC Chromatogram Data
+# Experiment: eLabFTW #67890
+# URL: https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890
+# Equipment: HPLC-UV (eLabFTW ID: EQUIP-12345)
+# Time(min)    Absorbance(mAU)
+0.00    2.1
+...
+</pre></div>
+</div>
+</section>
+<section id="analysis-code-with-documentation">
+<h3>Analysis Code with Documentation<a class="headerlink" href="#analysis-code-with-documentation" title="Link to this heading"></a></h3>
+<p>The analysis script demonstrates:</p>
+<ul class="simple">
+<li><p>NumPy-style docstrings with complete parameter documentation</p></li>
+<li><p>eLabFTW references in module and function docstrings</p></li>
+<li><p>Type hints for clarity</p></li>
+<li><p>Working examples with sample data</p></li>
+</ul>
+<p>Try it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/hplc_analysis.py
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>HPLC Chromatogram Analysis
+==================================================
+eLabFTW Experiment: https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890
+eLabFTW Equipment: https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345
+
+File: data/sample_hplc_chromatogram.txt
+Data points: 101
+Time range: 0.00 - 10.00 min
+Baseline: 2.40 mAU
+
+Detected 2 peaks:
+--------------------------------------------------
+Peak 1: RT=2.10 min, Height=98.7 mAU
+Peak 2: RT=5.70 min, Height=122.3 mAU
+
+Peak Resolution: Rs = 1.71
+</pre></div>
+</div>
+</section>
+</section>
+<section id="what-is-elabftw">
+<h2>What is eLabFTW?<a class="headerlink" href="#what-is-elabftw" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://www.elabftw.net/">eLabFTW</a> is a free, open-source electronic lab notebook designed for research laboratories. It provides:</p>
+<ul class="simple">
+<li><p><strong>Experiment Documentation</strong>: Record protocols, observations, and results</p></li>
+<li><p><strong>Equipment Database</strong>: Track instruments, specifications, and maintenance</p></li>
+<li><p><strong>Data Management</strong>: Store and organize research data with versioning</p></li>
+<li><p><strong>Collaboration</strong>: Share experiments with team members</p></li>
+<li><p><strong>Compliance</strong>: Meet FDA 21 CFR Part 11, GLP regulations</p></li>
+<li><p><strong>Persistent IDs</strong>: Every experiment gets a permanent reference number</p></li>
+</ul>
+<p>Combined with GitHub for code and Sphinx for documentation, eLabFTW completes the research workflow:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>eLabFTW Experiment → GitHub Code → Python Analysis → Results back to eLabFTW
+
+(Protocol &amp; Data) → (Version Control) → (Reproducible) → (Complete Record)
+</pre></div>
+</div>
+</section>
+<section id="the-complete-workflow">
+<h2>The Complete Workflow<a class="headerlink" href="#the-complete-workflow" title="Link to this heading"></a></h2>
+<section id="step-1-document-in-elabftw">
+<h3>Step 1: Document in eLabFTW<a class="headerlink" href="#step-1-document-in-elabftw" title="Link to this heading"></a></h3>
+<p>Create experiment record with:</p>
+<ul class="simple">
+<li><p>Protocol and method details</p></li>
+<li><p>Equipment used (with database IDs)</p></li>
+<li><p>Raw data files uploaded</p></li>
+<li><p>Note the experiment ID (e.g., #67890)</p></li>
+</ul>
+</section>
+<section id="step-2-write-analysis-code">
+<h3>Step 2: Write Analysis Code<a class="headerlink" href="#step-2-write-analysis-code" title="Link to this heading"></a></h3>
+<p>Reference eLabFTW in your Python scripts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">HPLC Analysis Script</span>
+
+<span class="sd">eLabFTW References:</span>
+<span class="sd">- Experiment: https://your-instance.org/experiments.php?mode=view&amp;id=67890</span>
+<span class="sd">- Equipment: https://your-instance.org/database.php?mode=view&amp;id=EQUIP-12345</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">hplc_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">analyze_chromatogram</span>
+
+<span class="c1"># Load data (file header includes eLabFTW reference)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">analyze_chromatogram</span><span class="p">(</span><span class="s1">&#39;data/sample.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-generate-documentation">
+<h3>Step 3: Generate Documentation<a class="headerlink" href="#step-3-generate-documentation" title="Link to this heading"></a></h3>
+<p>Sphinx automatically builds docs from your docstrings:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docs
+make<span class="w"> </span>html
+</pre></div>
+</div>
+<p>Documentation includes:</p>
+<ul class="simple">
+<li><p>Auto-generated API reference</p></li>
+<li><p>eLabFTW integration guide</p></li>
+<li><p>Best practices for scientific docs</p></li>
+<li><p>Working code examples</p></li>
+</ul>
+</section>
+<section id="step-4-return-results-to-elabftw">
+<h3>Step 4: Return Results to eLabFTW<a class="headerlink" href="#step-4-return-results-to-elabftw" title="Link to this heading"></a></h3>
+<p>Upload results to experiment record:</p>
+<ul class="simple">
+<li><p>Processed data and figures</p></li>
+<li><p>Analysis parameters used</p></li>
+<li><p><strong>GitHub commit reference</strong> for reproducibility</p></li>
+</ul>
+<p>This closes the loop: experiment → analysis → results → permanent record.</p>
+</section>
+</section>
+<section id="api-documentation">
+<h2>API Documentation<a class="headerlink" href="#api-documentation" title="Link to this heading"></a></h2>
+<section id="hplc-analysis-module">
+<h3>HPLC Analysis Module<a class="headerlink" href="#hplc-analysis-module" title="Link to this heading"></a></h3>
+<p>The <a class="reference internal" href="#module-hplc_analysis" title="hplc_analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hplc_analysis</span></code></a> module provides functions for analyzing HPLC chromatogram data with eLabFTW integration.</p>
+<p id="module-hplc_analysis">HPLC Chromatogram Analysis Module</p>
+<p>This module provides functions for analyzing HPLC chromatogram data, including
+peak detection and basic chromatographic parameter calculations.</p>
+<section id="elabftw-integration">
+<h4>eLabFTW Integration<a class="headerlink" href="#elabftw-integration" title="Link to this heading"></a></h4>
+<p>This analysis script is designed to work with chromatogram data exported from
+laboratory instruments. Link your analysis to experimental records in eLabFTW:</p>
+<ul class="simple">
+<li><p><strong>Equipment Records</strong>: Document instrument specifications and maintenance
+(e.g., <a class="reference external" href="https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345">https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345</a>)</p></li>
+<li><p><strong>Experiment Records</strong>: Reference the specific experimental run
+(e.g., <a class="reference external" href="https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890">https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890</a>)</p></li>
+</ul>
+</section>
+<section id="example-elabftw-reference-in-code">
+<h4>Example eLabFTW Reference in Code<a class="headerlink" href="#example-elabftw-reference-in-code" title="Link to this heading"></a></h4>
+<p>Always include eLabFTW links in your data files and analysis scripts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Link to eLabFTW experiment in file header or docstring</span>
+<span class="c1"># Experiment: https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890</span>
+<span class="c1"># Equipment: https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345</span>
+</pre></div>
+</div>
+<p>For more information on eLabFTW integration, see the documentation.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="hplc_analysis.analyze_chromatogram">
+<span class="sig-prename descclassname"><span class="pre">hplc_analysis.</span></span><span class="sig-name descname"><span class="pre">analyze_chromatogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/hplc_analysis.html#analyze_chromatogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hplc_analysis.analyze_chromatogram" title="Link to this definition"></a></dt>
+<dd><p>Complete analysis workflow for an HPLC chromatogram.</p>
+<p>Loads data, detects peaks, and calculates chromatographic parameters.
+Provides a comprehensive summary suitable for reporting in laboratory
+notebooks or publications.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em>) – Path to chromatogram data file.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – Peak detection threshold in mAU (default: 10.0).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>results</strong> – Analysis results containing:</p>
+<ul class="simple">
+<li><p>’filepath’: str - Input file path</p></li>
+<li><p>’n_points’: int - Number of data points</p></li>
+<li><p>’time_range’: tuple - (min_time, max_time) in minutes</p></li>
+<li><p>’peaks’: list - Detected peaks with properties</p></li>
+<li><p>’n_peaks’: int - Number of detected peaks</p></li>
+<li><p>’baseline’: float - Estimated baseline absorbance</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">analyze_chromatogram</span><span class="p">(</span><span class="s1">&#39;data/sample_hplc_chromatogram.txt&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">threshold</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;n_peaks&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> peaks&quot;</span><span class="p">)</span>
+<span class="go">Detected 2 peaks</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;peaks&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: RT=</span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;retention_time&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> min&quot;</span><span class="p">)</span>
+<span class="go">Peak 1: RT=2.10 min</span>
+<span class="go">Peak 2: RT=5.70 min</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p><strong>Complete Workflow with eLabFTW</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Before Analysis</strong>:</p>
+<ul class="simple">
+<li><p>Create experiment record in eLabFTW with method details</p></li>
+<li><p>Record instrument ID and calibration information</p></li>
+<li><p>Upload raw data file to eLabFTW</p></li>
+</ul>
+</li>
+<li><p><strong>During Analysis</strong>:</p>
+<ul class="simple">
+<li><p>Run this analysis function</p></li>
+<li><p>Reference eLabFTW experiment ID in analysis script header</p></li>
+</ul>
+</li>
+<li><p><strong>After Analysis</strong>:</p>
+<ul class="simple">
+<li><p>Export results to CSV or JSON</p></li>
+<li><p>Upload results to eLabFTW experiment record</p></li>
+<li><p>Link GitHub repository/commit in eLabFTW for code traceability</p></li>
+<li><p>Document any manual peak assignments or corrections</p></li>
+</ul>
+</li>
+</ol>
+<p>This workflow ensures complete traceability from raw data to final results.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#hplc_analysis.load_chromatogram" title="hplc_analysis.load_chromatogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_chromatogram</span></code></a></dt><dd><p>Load data file</p>
+</dd>
+<dt><a class="reference internal" href="#hplc_analysis.find_peaks" title="hplc_analysis.find_peaks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_peaks</span></code></a></dt><dd><p>Peak detection algorithm</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hplc_analysis.calculate_resolution">
+<span class="sig-prename descclassname"><span class="pre">hplc_analysis.</span></span><span class="sig-name descname"><span class="pre">calculate_resolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absorbance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/hplc_analysis.html#calculate_resolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hplc_analysis.calculate_resolution" title="Link to this definition"></a></dt>
+<dd><p>Calculate chromatographic resolution between two peaks.</p>
+<p>Resolution (Rs) is a measure of peak separation, defined as:</p>
+<div class="math notranslate nohighlight">
+\[R_s = \frac{2(t_{R2} - t_{R1})}{w_1 + w_2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(t_{R1}\)</span> and <span class="math notranslate nohighlight">\(t_{R2}\)</span> are retention times, and
+<span class="math notranslate nohighlight">\(w_1\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span> are peak widths at baseline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peak1</strong> (<em>dict</em>) – First peak dictionary from find_peaks().</p></li>
+<li><p><strong>peak2</strong> (<em>dict</em>) – Second peak dictionary from find_peaks().</p></li>
+<li><p><strong>time</strong> (<em>np.ndarray</em>) – Time values in minutes.</p></li>
+<li><p><strong>absorbance</strong> (<em>np.ndarray</em>) – Absorbance values in mAU.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>resolution</strong> – Resolution value. Rs &gt; 1.5 indicates baseline separation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span> <span class="o">=</span> <span class="n">load_chromatogram</span><span class="p">(</span><span class="s1">&#39;data/sample_hplc_chromatogram.txt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">peaks</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">rs</span> <span class="o">=</span> <span class="n">calculate_resolution</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">peaks</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resolution: </span><span class="si">{</span><span class="n">rs</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Resolution: 4.23</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This implementation estimates peak width at half height (FWHH) and converts
+to baseline width using the approximation: baseline_width ≈ 2 * FWHH.</p>
+<p><strong>Quality Control</strong>: Document resolution values in eLabFTW for method
+validation and quality control. Include acceptance criteria (typically
+Rs &gt; 1.5 for baseline separation).</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Snyder, L. R., Kirkland, J. J., &amp; Dolan, J. W. (2010).
+Introduction to Modern Liquid Chromatography (3rd ed.). Wiley.</p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hplc_analysis.find_peaks">
+<span class="sig-prename descclassname"><span class="pre">hplc_analysis.</span></span><span class="sig-name descname"><span class="pre">find_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absorbance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/hplc_analysis.html#find_peaks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hplc_analysis.find_peaks" title="Link to this definition"></a></dt>
+<dd><p>Detect peaks in HPLC chromatogram data.</p>
+<p>Identifies local maxima in the absorbance signal that exceed a specified
+threshold. Returns peak properties including retention time, height, and
+approximate area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<em>np.ndarray</em>) – Time values in minutes (1D array).</p></li>
+<li><p><strong>absorbance</strong> (<em>np.ndarray</em>) – Absorbance values in mAU (1D array).</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum peak height in mAU to be considered a peak (default: 10.0).</p></li>
+<li><p><strong>min_distance</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum number of data points between peaks (default: 5).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><strong>peaks</strong> – List of detected peaks, where each peak is a dictionary containing:</p>
+<ul class="simple">
+<li><p>’retention_time’: float - Peak retention time in minutes</p></li>
+<li><p>’height’: float - Peak height in mAU</p></li>
+<li><p>’area’: float - Approximate peak area (trapezoidal integration)</p></li>
+<li><p>’index’: int - Index of peak maximum in the data array</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span> <span class="o">=</span> <span class="n">load_chromatogram</span><span class="p">(</span><span class="s1">&#39;data/sample_hplc_chromatogram.txt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">peaks</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">peaks</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: RT=</span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;retention_time&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> min, &quot;</span>
+<span class="gp">... </span>          <span class="sa">f</span><span class="s2">&quot;Height=</span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mAU&quot;</span><span class="p">)</span>
+<span class="go">Peak 1: RT=2.10 min, Height=98.7 mAU</span>
+<span class="go">Peak 2: RT=5.70 min, Height=122.3 mAU</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This is a simple peak detection algorithm suitable for well-resolved peaks.
+For complex chromatograms with overlapping peaks, consider using more
+sophisticated peak deconvolution methods.</p>
+<p>The peak area is calculated using trapezoidal integration from the point
+where absorbance drops below the threshold on either side of the peak.</p>
+<p><strong>Documentation in eLabFTW</strong>: When documenting peak identification results,
+include them in your eLabFTW experiment record along with:</p>
+<ul class="simple">
+<li><p>Integration parameters (threshold, baseline correction)</p></li>
+<li><p>Peak assignments (compound identities)</p></li>
+<li><p>Calibration curve information for quantification</p></li>
+</ul>
+<p>This ensures all analysis parameters are tracked with your experimental data.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#hplc_analysis.load_chromatogram" title="hplc_analysis.load_chromatogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_chromatogram</span></code></a></dt><dd><p>Load chromatogram data from file</p>
+</dd>
+<dt><a class="reference internal" href="#hplc_analysis.calculate_resolution" title="hplc_analysis.calculate_resolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_resolution</span></code></a></dt><dd><p>Calculate peak resolution</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hplc_analysis.load_chromatogram">
+<span class="sig-prename descclassname"><span class="pre">hplc_analysis.</span></span><span class="sig-name descname"><span class="pre">load_chromatogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/hplc_analysis.html#load_chromatogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hplc_analysis.load_chromatogram" title="Link to this definition"></a></dt>
+<dd><p>Load HPLC chromatogram data from a text file.</p>
+<p>Reads a two-column text file containing time and absorbance data.
+Lines starting with ‘#’ are treated as comments and skipped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – Path to the chromatogram data file. File should contain two columns:
+time (minutes) and absorbance (mAU).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>time</strong> (<em>np.ndarray</em>) – Time values in minutes (1D array).</p></li>
+<li><p><strong>absorbance</strong> (<em>np.ndarray</em>) – Absorbance values in mAU (1D array).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If the specified file does not exist.</p></li>
+<li><p><strong>ValueError</strong> – If the file format is invalid or cannot be parsed.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span> <span class="o">=</span> <span class="n">load_chromatogram</span><span class="p">(</span><span class="s1">&#39;data/sample_hplc_chromatogram.txt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data points: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Data points: 101</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time range: </span><span class="si">{</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> min&quot;</span><span class="p">)</span>
+<span class="go">Time range: 0.00 - 10.00 min</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p><strong>eLabFTW Best Practice</strong>: Include the eLabFTW experiment ID in the
+chromatogram file header as a comment. This creates a permanent link
+between your raw data and experimental documentation.</p>
+<p>Example file header:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Experiment: eLabFTW #67890</span>
+<span class="c1"># Equipment: HPLC-UV (eLabFTW ID: EQUIP-12345)</span>
+<span class="c1"># Time(min)    Absorbance(mAU)</span>
+<span class="mf">0.00</span>    <span class="mf">2.1</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#hplc_analysis.find_peaks" title="hplc_analysis.find_peaks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_peaks</span></code></a></dt><dd><p>Detect peaks in the loaded chromatogram</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<p>Key functions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#hplc_analysis.load_chromatogram" title="hplc_analysis.load_chromatogram"><code class="xref py py-func docutils literal notranslate"><span class="pre">hplc_analysis.load_chromatogram()</span></code></a> - Load data from text files</p></li>
+<li><p><a class="reference internal" href="#hplc_analysis.find_peaks" title="hplc_analysis.find_peaks"><code class="xref py py-func docutils literal notranslate"><span class="pre">hplc_analysis.find_peaks()</span></code></a> - Detect peaks in chromatograms</p></li>
+<li><p><a class="reference internal" href="#hplc_analysis.calculate_resolution" title="hplc_analysis.calculate_resolution"><code class="xref py py-func docutils literal notranslate"><span class="pre">hplc_analysis.calculate_resolution()</span></code></a> - Calculate peak resolution</p></li>
+<li><p><a class="reference internal" href="#hplc_analysis.analyze_chromatogram" title="hplc_analysis.analyze_chromatogram"><code class="xref py py-func docutils literal notranslate"><span class="pre">hplc_analysis.analyze_chromatogram()</span></code></a> - Complete analysis workflow</p></li>
+</ul>
+</section>
+<section id="sample-module-general-scientific-computing">
+<h3>Sample Module (General Scientific Computing)<a class="headerlink" href="#sample-module-general-scientific-computing" title="Link to this heading"></a></h3>
+<p>The <a class="reference internal" href="#module-sample_module" title="sample_module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sample_module</span></code></a> module demonstrates general scientific computing with NumPy-style documentation.</p>
+<p id="module-sample_module">Sample module for demonstrating scientific Python documentation.</p>
+<p>This module provides functions for data analysis and statistical computations
+commonly used in scientific research.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sample_module.DataAnalyzer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sample_module.</span></span><span class="sig-name descname"><span class="pre">DataAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dataset'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sample_module.html#DataAnalyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sample_module.DataAnalyzer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for performing common data analysis operations.</p>
+<p>This class provides methods for statistical analysis, data transformation,
+and visualization preparation for scientific datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – Input dataset to analyze.</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name identifier for the dataset (default is ‘dataset’).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sample_module.DataAnalyzer.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#sample_module.DataAnalyzer.data" title="Link to this definition"></a></dt>
+<dd><p>The stored dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sample_module.DataAnalyzer.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#sample_module.DataAnalyzer.name" title="Link to this definition"></a></dt>
+<dd><p>The dataset name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sample_module.DataAnalyzer.n_samples">
+<span class="sig-name descname"><span class="pre">n_samples</span></span><a class="headerlink" href="#sample_module.DataAnalyzer.n_samples" title="Link to this definition"></a></dt>
+<dd><p>Number of samples in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">DataAnalyzer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;test_data&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">get_summary</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">])</span>
+<span class="go">5.5</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This class is designed for 1D numerical datasets. For multidimensional
+data, consider reshaping or using specialized tools.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sample_module.DataAnalyzer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dataset'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sample_module.html#DataAnalyzer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sample_module.DataAnalyzer.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the DataAnalyzer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sample_module.DataAnalyzer.detect_outliers">
+<span class="sig-name descname"><span class="pre">detect_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'iqr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/sample_module.html#DataAnalyzer.detect_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sample_module.DataAnalyzer.detect_outliers" title="Link to this definition"></a></dt>
+<dd><p>Detect outliers in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>{'iqr'</em><em>, </em><em>'zscore'}</em><em>, </em><em>optional</em>) – <p>Method for outlier detection (default is ‘iqr’).</p>
+<ul>
+<li><p>’iqr’: Interquartile range method</p></li>
+<li><p>’zscore’: Z-score method</p></li>
+</ul>
+</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold for outlier detection (default is 1.5 for IQR,
+typically 3.0 for z-score).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Boolean array indicating outliers (True) and inliers (False).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>  <span class="c1"># 100 is an outlier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">DataAnalyzer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">outliers</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">detect_outliers</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;iqr&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">outliers</span><span class="p">])</span>
+<span class="go">[100]</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>The IQR method considers values outside of
+<span class="math notranslate nohighlight">\([Q1 - threshold \times IQR, Q3 + threshold \times IQR]\)</span>
+as outliers, where <span class="math notranslate nohighlight">\(IQR = Q3 - Q1\)</span>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sample_module.DataAnalyzer.get_summary">
+<span class="sig-name descname"><span class="pre">get_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/sample_module.html#DataAnalyzer.get_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sample_module.DataAnalyzer.get_summary" title="Link to this definition"></a></dt>
+<dd><p>Get statistical summary of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>Dictionary containing statistical measures:</p>
+<ul class="simple">
+<li><p>’mean’: arithmetic mean</p></li>
+<li><p>’median’: median value</p></li>
+<li><p>’std’: standard deviation</p></li>
+<li><p>’min’: minimum value</p></li>
+<li><p>’max’: maximum value</p></li>
+<li><p>’q25’: 25th percentile</p></li>
+<li><p>’q75’: 75th percentile</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">DataAnalyzer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">get_summary</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;median&#39;</span><span class="p">]</span>
+<span class="go">3.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sample_module.calculate_mean_std">
+<span class="sig-prename descclassname"><span class="pre">sample_module.</span></span><span class="sig-name descname"><span class="pre">calculate_mean_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sample_module.html#calculate_mean_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sample_module.calculate_mean_std" title="Link to this definition"></a></dt>
+<dd><p>Calculate the mean and standard deviation of a dataset.</p>
+<p>This function computes the arithmetic mean and population standard deviation
+of the input data using NumPy’s efficient implementations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>np.ndarray</em>) – A 1D numpy array containing numerical data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>mean</strong> (<em>float</em>) – The arithmetic mean of the dataset.</p></li>
+<li><p><strong>std</strong> (<em>float</em>) – The population standard deviation of the dataset.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">calculate_mean_std</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean: </span><span class="si">{</span><span class="n">mean</span><span class="si">}</span><span class="s2">, Std: </span><span class="si">{</span><span class="n">std</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Mean: 3.0, Std: 1.41</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>The standard deviation is calculated using the population formula (N divisor),
+not the sample formula (N-1 divisor).</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.mean</span></code></dt><dd><p>Compute the arithmetic mean.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.std</span></code></dt><dd><p>Compute the standard deviation.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sample_module.linear_regression">
+<span class="sig-prename descclassname"><span class="pre">sample_module.</span></span><span class="sig-name descname"><span class="pre">linear_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sample_module.html#linear_regression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sample_module.linear_regression" title="Link to this definition"></a></dt>
+<dd><p>Perform simple linear regression on two variables.</p>
+<p>Fits a linear model y = mx + b to the data using the least squares method.
+Returns the slope, intercept, and coefficient of determination (R²).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Independent variable data (1D array).</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – Dependent variable data (1D array).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>slope</strong> (<em>float</em>) – The slope (m) of the fitted line.</p></li>
+<li><p><strong>intercept</strong> (<em>float</em>) – The y-intercept (b) of the fitted line.</p></li>
+<li><p><strong>r_squared</strong> (<em>float</em>) – The coefficient of determination (R²), indicating goodness of fit.
+Values range from 0 to 1, where 1 indicates perfect fit.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If x and y have different lengths or if x has zero variance.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">linear_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;y = </span><span class="si">{</span><span class="n">slope</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x + </span><span class="si">{</span><span class="n">intercept</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, R² = </span><span class="si">{</span><span class="n">r2</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">y = 0.60x + 2.20, R² = 0.462</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>The R² value is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[R^2 = 1 - \frac{SS_{res}}{SS_{tot}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(SS_{res}\)</span> is the residual sum of squares and
+<span class="math notranslate nohighlight">\(SS_{tot}\)</span> is the total sum of squares.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Draper, N. R., &amp; Smith, H. (1998). Applied Regression Analysis
+(3rd ed.). Wiley-Interscience.</p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sample_module.normalize_data">
+<span class="sig-prename descclassname"><span class="pre">sample_module.</span></span><span class="sig-name descname"><span class="pre">normalize_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'zscore'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/sample_module.html#normalize_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sample_module.normalize_data" title="Link to this definition"></a></dt>
+<dd><p>Normalize data using specified method.</p>
+<p>Transforms the input data to a standardized scale for improved
+comparability and analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – Input data to be normalized (1D or 2D array).</p></li>
+<li><p><strong>method</strong> (<em>{'zscore'</em><em>, </em><em>'minmax'}</em><em>, </em><em>optional</em>) – <p>Normalization method to use (default is ‘zscore’).</p>
+<ul>
+<li><p>’zscore’: Standardize to zero mean and unit variance</p></li>
+<li><p>’minmax’: Scale to [0, 1] range</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>normalized</strong> – Normalized data with the same shape as input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If method is not ‘zscore’ or ‘minmax’.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalized</span> <span class="o">=</span> <span class="n">normalize_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;zscore&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Std: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Mean: 0.00, Std: 1.00</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">normalized</span> <span class="o">=</span> <span class="n">normalize_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;minmax&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Min: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Max: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Min: 0.00, Max: 1.00</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>Z-score normalization is defined as:</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{x - \mu}{\sigma}\]</div>
+<p>Min-max normalization is defined as:</p>
+<div class="math notranslate nohighlight">
+\[x_{norm} = \frac{x - x_{min}}{x_{max} - x_{min}}\]</div>
+</dd></dl>
+
+<p>This module includes:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#sample_module.calculate_mean_std" title="sample_module.calculate_mean_std"><code class="xref py py-func docutils literal notranslate"><span class="pre">sample_module.calculate_mean_std()</span></code></a> - Statistical calculations</p></li>
+<li><p><a class="reference internal" href="#sample_module.linear_regression" title="sample_module.linear_regression"><code class="xref py py-func docutils literal notranslate"><span class="pre">sample_module.linear_regression()</span></code></a> - Regression analysis</p></li>
+<li><p><a class="reference internal" href="#sample_module.normalize_data" title="sample_module.normalize_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">sample_module.normalize_data()</span></code></a> - Data normalization</p></li>
+<li><p><a class="reference internal" href="#sample_module.DataAnalyzer" title="sample_module.DataAnalyzer"><code class="xref py py-class docutils literal notranslate"><span class="pre">sample_module.DataAnalyzer</span></code></a> - Data analysis class</p></li>
+</ul>
+</section>
+</section>
+<section id="repository-structure">
+<h2>Repository Structure<a class="headerlink" href="#repository-structure" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+├── data/
+│   └── sample_hplc_chromatogram.txt    # Example data with eLabFTW refs
+├── src/
+│   ├── hplc_analysis.py                # HPLC analysis with eLabFTW
+│   └── sample_module.py                # General scientific computing
+├── docs/
+│   ├── source/
+│   │   ├── conf.py                     # Sphinx configuration
+│   │   ├── index.rst                   # This page
+│   │   ├── elabftw_integration.rst     # eLabFTW workflow guide
+│   │   └── best_practices.rst          # Documentation best practices
+│   └── Makefile                        # Build commands
+├── README.md                           # Main repository documentation
+├── CONTRIBUTING.md                     # Contribution guidelines
+├── LICENSE.md                          # MIT license
+└── requirements.txt                    # Python dependencies
+</pre></div>
+</div>
+</section>
+<section id="for-beginners">
+<h2>For Beginners<a class="headerlink" href="#for-beginners" title="Link to this heading"></a></h2>
+<section id="new-to-python">
+<h3>New to Python?<a class="headerlink" href="#new-to-python" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/tutorial/">Python Tutorial</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/user/quickstart.html">NumPy Quickstart</a></p></li>
+<li><p><a class="reference external" href="https://www.pythonforchemists.org/">Python for Chemists</a></p></li>
+</ul>
+</section>
+<section id="new-to-git-github">
+<h3>New to Git/GitHub?<a class="headerlink" href="#new-to-git-github" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://skills.github.com/">GitHub Skills</a></p></li>
+<li><p><a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics">Git Basics</a></p></li>
+<li><p><a class="reference external" href="https://guides.github.com/">GitHub Guides</a></p></li>
+</ul>
+</section>
+<section id="new-to-sphinx">
+<h3>New to Sphinx?<a class="headerlink" href="#new-to-sphinx" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/tutorial/">Sphinx Tutorial</a></p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">reStructuredText Primer</a></p></li>
+<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/">NumPy Docstring Guide</a></p></li>
+</ul>
+</section>
+<section id="new-to-elabftw">
+<h3>New to eLabFTW?<a class="headerlink" href="#new-to-elabftw" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://doc.elabftw.net/">eLabFTW Documentation</a></p></li>
+<li><p><a class="reference external" href="https://demo.elabftw.net/">eLabFTW Demo</a></p></li>
+<li><p><a class="reference external" href="https://doc.elabftw.net/install.html">Installation Guide</a></p></li>
+</ul>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Ready to dive deeper?</p>
+<ul class="simple">
+<li><p><strong>Learn eLabFTW Integration</strong>: Read the <a class="reference internal" href="elabftw_integration.html"><span class="doc">eLabFTW Integration Guide</span></a> guide</p></li>
+<li><p><strong>Improve Your Docs</strong>: Check out <a class="reference internal" href="best_practices.html"><span class="doc">Documentation Best Practices</span></a></p></li>
+<li><p><strong>Explore the Code</strong>: Browse the <a class="reference internal" href="#module-hplc_analysis" title="hplc_analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hplc_analysis</span></code></a> module</p></li>
+<li><p><strong>Contribute</strong>: See <a class="reference external" href="https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a></p></li>
+</ul>
+</section>
+<section id="deploying-to-github-pages">
+<h2>Deploying to GitHub Pages<a class="headerlink" href="#deploying-to-github-pages" title="Link to this heading"></a></h2>
+<p>This repository includes GitHub Actions automation:</p>
+<ol class="arabic simple">
+<li><p><strong>Push to main/master</strong> - Triggers automatic build</p></li>
+<li><p><strong>Documentation builds</strong> - Sphinx generates HTML</p></li>
+<li><p><strong>Deploys to GitHub Pages</strong> - Published automatically</p></li>
+<li><p><strong>View at</strong>: <code class="docutils literal notranslate"><span class="pre">https://&lt;username&gt;.github.io/&lt;repository&gt;/</span></code></p></li>
+</ol>
+<p>See <a class="reference external" href="https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/blob/main/GITHUB_PAGES_SETUP.md">GITHUB_PAGES_SETUP.md</a> for setup instructions.</p>
+</section>
+<section id="links-and-resources">
+<h2>Links and Resources<a class="headerlink" href="#links-and-resources" title="Link to this heading"></a></h2>
+<p><strong>This Repository</strong>:</p>
+<ul class="simple">
+<li><p>GitHub: <a class="reference external" href="https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx">https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx</a></p></li>
+<li><p>Documentation: <a class="reference external" href="https://b-wie.github.io/how_to_document_your_reposiory_with_sphinx/">https://b-wie.github.io/how_to_document_your_reposiory_with_sphinx/</a></p></li>
+<li><p>Issues: <a class="reference external" href="https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/issues">https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/issues</a></p></li>
+</ul>
+<p><strong>Documentation Tools</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> - Documentation generator</p></li>
+<li><p><a class="reference external" href="https://readthedocs.org/">Read the Docs</a> - Documentation hosting</p></li>
+<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/">NumPy Docstring Standard</a> - Docstring format</p></li>
+</ul>
+<p><strong>Lab Data Management</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.elabftw.net/">eLabFTW</a> - Electronic lab notebook</p></li>
+<li><p><a class="reference external" href="https://zenodo.org/">Zenodo</a> - Research data archiving</p></li>
+<li><p><a class="reference external" href="https://osf.io/">OSF</a> - Open Science Framework</p></li>
+</ul>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<p>Contributions welcome! This is a learning-friendly project. See <a class="reference external" href="https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for:</p>
+<ul class="simple">
+<li><p>How to set up development environment</p></li>
+<li><p>Code style guidelines</p></li>
+<li><p>Documentation standards</p></li>
+<li><p>Pull request process</p></li>
+</ul>
+<p>All skill levels welcome!</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>MIT License - see <a class="reference external" href="https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/blob/main/LICENSE.md">LICENSE.md</a>.</p>
+</section>
+<section id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading"></a></h2>
+<p>Built on best practices from:</p>
+<ul class="simple">
+<li><p>NumPy and SciPy documentation communities</p></li>
+<li><p>Sphinx and Read the Docs projects</p></li>
+<li><p>eLabFTW development team</p></li>
+<li><p>Scientific Python package maintainers</p></li>
+<li><p>Research software engineering community</p></li>
+</ul>
+</section>
+<section id="questions">
+<h2>Questions?<a class="headerlink" href="#questions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>📖 Read the guides: <a class="reference internal" href="elabftw_integration.html"><span class="doc">eLabFTW Integration Guide</span></a> and <a class="reference internal" href="best_practices.html"><span class="doc">Documentation Best Practices</span></a></p></li>
+<li><p>💬 Start a <a class="reference external" href="https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/discussions">discussion</a></p></li>
+<li><p>🐛 Report <a class="reference external" href="https://github.com/B-Wie/how_to_document_your_reposiory_with_sphinx/issues">issues</a></p></li>
+</ul>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="elabftw_integration.html" class="btn btn-neutral float-right" title="eLabFTW Integration Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, B-Wie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

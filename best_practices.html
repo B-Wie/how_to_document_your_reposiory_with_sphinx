@@ -1,0 +1,849 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation Best Practices &mdash; Scientific Python Documentation with eLabFTW 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="eLabFTW Integration Guide" href="elabftw_integration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Scientific Python Documentation with eLabFTW
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="elabftw_integration.html">eLabFTW Integration Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-documentation-matters">Why Documentation Matters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-types">Documentation Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-docstrings">Writing Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-structure">Basic Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docstring-sections">Docstring Sections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-good-docstring">Example: Good Docstring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#type-hints">Type Hints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-user-guides">Writing User Guides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#start-with-installation">Start with Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#provide-quick-start">Provide Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#include-complete-examples">Include Complete Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-sphinx">Using Sphinx</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#restructuredtext-basics">reStructuredText Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-equations">Mathematical Equations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-references">Cross-References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto-generated-api-docs">Auto-Generated API Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#organizing-documentation">Organizing Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#structure-for-small-projects">Structure for Small Projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-for-larger-projects">Structure for Larger Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#elabftw-integration-in-docs">eLabFTW Integration in Docs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#show-complete-workflows">Show Complete Workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#provide-examples-with-elabftw-links">Provide Examples with eLabFTW Links</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#document-where-things-go">Document Where Things Go</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-control-for-documentation">Version Control for Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#commit-documentation-changes">Commit Documentation Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keep-docs-synchronized">Keep Docs Synchronized</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-documentation">Version Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#common-mistakes-to-avoid">Common Mistakes to Avoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools-and-resources">Tools and Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documentation-tools">Documentation Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checking-documentation">Checking Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#learning-resources">Learning Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example-documentation-checklist">Example Documentation Checklist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Scientific Python Documentation with eLabFTW</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation Best Practices</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/best_practices.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation-best-practices">
+<h1>Documentation Best Practices<a class="headerlink" href="#documentation-best-practices" title="Link to this heading"></a></h1>
+<p>This guide provides practical advice for creating high-quality documentation for scientific Python projects, with a focus on beginner-friendly approaches and integration with lab workflows.</p>
+<section id="why-documentation-matters">
+<h2>Why Documentation Matters<a class="headerlink" href="#why-documentation-matters" title="Link to this heading"></a></h2>
+<p>Good documentation:</p>
+<ul class="simple">
+<li><p>📖 <strong>Helps future you</strong>: Remember what you did 6 months from now</p></li>
+<li><p>🤝 <strong>Enables collaboration</strong>: Team members can understand and use your code</p></li>
+<li><p>🔬 <strong>Ensures reproducibility</strong>: Others can replicate your analysis</p></li>
+<li><p>📊 <strong>Supports publication</strong>: Methods section writes itself</p></li>
+<li><p>⚖️ <strong>Meets compliance</strong>: Required for regulated industries</p></li>
+<li><p>🎓 <strong>Facilitates learning</strong>: Onboard new lab members faster</p></li>
+</ul>
+<p><strong>Reality check</strong>: Writing documentation takes time, but saves much more time later.</p>
+</section>
+<section id="documentation-types">
+<h2>Documentation Types<a class="headerlink" href="#documentation-types" title="Link to this heading"></a></h2>
+<p>Different documentation serves different purposes:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Documentation Types</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 35.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Examples</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Code Documentation</p></td>
+<td><p>Explain how functions work</p></td>
+<td><p>Docstrings, inline comments</p></td>
+</tr>
+<tr class="row-odd"><td><p>User Guide</p></td>
+<td><p>Show how to use the code</p></td>
+<td><p>Tutorials, examples, workflows</p></td>
+</tr>
+<tr class="row-even"><td><p>API Reference</p></td>
+<td><p>List all functions/classes</p></td>
+<td><p>Auto-generated from docstrings</p></td>
+</tr>
+<tr class="row-odd"><td><p>Theory/Methods</p></td>
+<td><p>Explain the science</p></td>
+<td><p>Equations, algorithms, references</p></td>
+</tr>
+<tr class="row-even"><td><p>Contributing Guide</p></td>
+<td><p>Help others contribute</p></td>
+<td><p>Setup, style guide, PR process</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>For beginners</strong>: Start with docstrings and one example. Expand from there.</p>
+</section>
+<section id="writing-docstrings">
+<h2>Writing Docstrings<a class="headerlink" href="#writing-docstrings" title="Link to this heading"></a></h2>
+<p>Docstrings are documentation inside your code. Python uses NumPy-style docstrings:</p>
+<section id="basic-structure">
+<h3>Basic Structure<a class="headerlink" href="#basic-structure" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">function_name</span><span class="p">(</span><span class="n">parameter1</span><span class="p">,</span> <span class="n">parameter2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    One-line summary of what the function does.</span>
+
+<span class="sd">    Longer description with more details about the function,</span>
+<span class="sd">    its purpose, and how it works. Can span multiple lines.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parameter1 : type</span>
+<span class="sd">        Description of the first parameter.</span>
+<span class="sd">    parameter2 : type</span>
+<span class="sd">        Description of the second parameter.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    return_type</span>
+<span class="sd">        Description of what the function returns.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; result = function_name(1, 2)</span>
+<span class="sd">    &gt;&gt;&gt; print(result)</span>
+<span class="sd">    3</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Any additional notes, warnings, or important information.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    related_function : Brief description of relation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Function implementation</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+<section id="docstring-sections">
+<h3>Docstring Sections<a class="headerlink" href="#docstring-sections" title="Link to this heading"></a></h3>
+<p><strong>Required sections</strong>:</p>
+<ul class="simple">
+<li><p><strong>Summary line</strong>: One line explaining what it does</p></li>
+<li><p><strong>Parameters</strong>: All input parameters with types</p></li>
+<li><p><strong>Returns</strong>: What the function returns</p></li>
+</ul>
+<p><strong>Recommended sections</strong>:</p>
+<ul class="simple">
+<li><p><strong>Examples</strong>: Actual code showing usage</p></li>
+<li><p><strong>Notes</strong>: Important details, limitations, or warnings</p></li>
+<li><p><strong>See Also</strong>: Links to related functions</p></li>
+</ul>
+<p><strong>Optional sections</strong>:</p>
+<ul class="simple">
+<li><p><strong>References</strong>: Citations to papers or books</p></li>
+<li><p><strong>Raises</strong>: Exceptions that might be raised</p></li>
+</ul>
+</section>
+<section id="example-good-docstring">
+<h3>Example: Good Docstring<a class="headerlink" href="#example-good-docstring" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_peak_area</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the area under a chromatographic peak.</span>
+
+<span class="sd">    Uses trapezoidal integration to compute the peak area between</span>
+<span class="sd">    specified indices. This is a standard method for quantitative</span>
+<span class="sd">    chromatography analysis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    time : np.ndarray</span>
+<span class="sd">        Time values in minutes (1D array).</span>
+<span class="sd">    absorbance : np.ndarray</span>
+<span class="sd">        Absorbance values in mAU (1D array).</span>
+<span class="sd">    start_idx : int</span>
+<span class="sd">        Index of peak start in the data arrays.</span>
+<span class="sd">    end_idx : int</span>
+<span class="sd">        Index of peak end in the data arrays.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    area : float</span>
+<span class="sd">        Peak area in mAU·min.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; time = np.array([0.0, 0.1, 0.2, 0.3, 0.4])</span>
+<span class="sd">    &gt;&gt;&gt; absorbance = np.array([2.0, 5.0, 8.0, 5.0, 2.0])</span>
+<span class="sd">    &gt;&gt;&gt; area = calculate_peak_area(time, absorbance, 0, 4)</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Peak area: {area:.2f} mAU·min&quot;)</span>
+<span class="sd">    Peak area: 2.00 mAU·min</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    For eLabFTW integration, document integration parameters</span>
+<span class="sd">    (start/end indices, baseline correction) in the experiment</span>
+<span class="sd">    record for full traceability.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Snyder, L. R., et al. (2010). Introduction to Modern</span>
+<span class="sd">           Liquid Chromatography. Wiley.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">absorbance</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
+                       <span class="n">time</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="type-hints">
+<h3>Type Hints<a class="headerlink" href="#type-hints" title="Link to this heading"></a></h3>
+<p>Use type hints for clarity:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">find_peaks</span><span class="p">(</span><span class="n">time</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+               <span class="n">absorbance</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+               <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find peaks in chromatogram data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    time : np.ndarray</span>
+<span class="sd">        Time values.</span>
+<span class="sd">    absorbance : np.ndarray</span>
+<span class="sd">        Absorbance values.</span>
+<span class="sd">    threshold : float, optional</span>
+<span class="sd">        Minimum peak height (default: 10.0).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of dict</span>
+<span class="sd">        Each dict contains &#39;retention_time&#39;, &#39;height&#39;, &#39;area&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Type hints help:
+* Users understand what inputs are expected
+* IDEs provide better autocomplete
+* Tools can catch type errors</p>
+</section>
+</section>
+<section id="writing-user-guides">
+<h2>Writing User Guides<a class="headerlink" href="#writing-user-guides" title="Link to this heading"></a></h2>
+<p>User guides show <em>how</em> to use your code. Key principles:</p>
+<section id="start-with-installation">
+<h3>Start with Installation<a class="headerlink" href="#start-with-installation" title="Link to this heading"></a></h3>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Installation</span>
+<span class="gh">============</span>
+
+<span class="gh">Requirements</span>
+<span class="gh">------------</span>
+
+<span class="m">*</span> Python 3.7 or higher
+<span class="m">*</span> NumPy 1.19.0 or higher
+<span class="m">*</span> eLabFTW instance (optional, for full workflow)
+
+<span class="gh">Install</span>
+<span class="gh">-------</span>
+
+Clone the repository:
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">bash</span>
+
+   git<span class="w"> </span>clone<span class="w"> </span>https://github.com/username/project.git
+   <span class="nb">cd</span><span class="w"> </span>project
+
+Install dependencies:
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> bash
+
+   pip install -r requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="provide-quick-start">
+<h3>Provide Quick Start<a class="headerlink" href="#provide-quick-start" title="Link to this heading"></a></h3>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Quick Start</span>
+<span class="gh">===========</span>
+
+Analyze an HPLC chromatogram in 3 steps:
+
+<span class="m">1.</span> <span class="gs">**Load data**</span>:
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
+
+   <span class="kn">from</span><span class="w"> </span><span class="nn">hplc_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_chromatogram</span>
+   <span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span> <span class="o">=</span> <span class="n">load_chromatogram</span><span class="p">(</span><span class="s1">&#39;data/sample.txt&#39;</span><span class="p">)</span>
+
+<span class="m">2.</span> <span class="gs">**Find peaks**</span>:
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
+
+   <span class="kn">from</span><span class="w"> </span><span class="nn">hplc_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_peaks</span>
+   <span class="n">peaks</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+
+<span class="m">3.</span> <span class="gs">**View results**</span>:
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
+
+   <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">peaks</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+       <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;retention_time&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> min&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="include-complete-examples">
+<h3>Include Complete Examples<a class="headerlink" href="#include-complete-examples" title="Link to this heading"></a></h3>
+<p>Show realistic, complete workflows:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Complete Workflow Example</span>
+<span class="gh">=========================</span>
+
+This example shows the full analysis pipeline from data loading
+to results reporting, including eLabFTW integration.
+
+<span class="gh">Step 1: Reference eLabFTW Experiment</span>
+<span class="gh">-------------------------------------</span>
+
+Before starting, note your eLabFTW experiment ID<span class="se">::</span>
+
+<span class="s">    Experiment: #67890</span>
+<span class="s">    URL: https://your-instance.org/experiments.php?mode=view&amp;id=67890</span>
+
+<span class="gh">Step 2: Load and Analyze Data</span>
+<span class="gh">------------------------------</span>
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
+
+   <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+   <span class="kn">from</span><span class="w"> </span><span class="nn">hplc_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">analyze_chromatogram</span>
+
+   <span class="c1"># Reference eLabFTW in code</span>
+   <span class="c1"># Experiment: https://your-instance.org/experiments.php?mode=view&amp;id=67890</span>
+
+   <span class="n">results</span> <span class="o">=</span> <span class="n">analyze_chromatogram</span><span class="p">(</span><span class="s1">&#39;data/sample.txt&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+
+   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;n_peaks&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> peaks&quot;</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;peaks&#39;</span><span class="p">]:</span>
+       <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  RT: </span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;retention_time&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> min&quot;</span><span class="p">)</span>
+       <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Area: </span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mAU·min&quot;</span><span class="p">)</span>
+
+<span class="gh">Step 3: Document in eLabFTW</span>
+<span class="gh">----------------------------</span>
+
+Upload results to your eLabFTW experiment and include:
+
+<span class="m">*</span> Peak table (CSV export)
+<span class="m">*</span> Analysis parameters used
+<span class="m">*</span> GitHub commit hash for reproducibility
+</pre></div>
+</div>
+</section>
+</section>
+<section id="using-sphinx">
+<h2>Using Sphinx<a class="headerlink" href="#using-sphinx" title="Link to this heading"></a></h2>
+<p>Sphinx converts documentation to beautiful HTML. Key concepts:</p>
+<section id="restructuredtext-basics">
+<h3>reStructuredText Basics<a class="headerlink" href="#restructuredtext-basics" title="Link to this heading"></a></h3>
+<p>reStructuredText (.rst files) is a markup language:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Section Heading</span>
+<span class="gh">===============</span>
+
+<span class="gh">Subsection</span>
+<span class="gh">----------</span>
+
+<span class="gs">**Bold text**</span> and <span class="ge">*italic text*</span>
+
+Bullet lists:
+
+<span class="m">*</span> First item
+<span class="m">*</span> Second item
+<span class="m">*</span> Third item
+
+Numbered lists:
+
+<span class="m">1.</span> Step one
+<span class="m">2.</span> Step two
+<span class="m">3.</span> Step three
+
+Code blocks:
+
+<span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
+
+   <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+   <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+External links:
+
+<span class="s">`Python </span><span class="si">&lt;https://python.org/&gt;</span><span class="s">`_</span>
+
+Cross-references:
+
+See <span class="na">:doc:</span><span class="nv">`other_page`</span> for more details.
+See <span class="na">:func:</span><span class="nv">`module.function`</span> for API docs.
+</pre></div>
+</div>
+</section>
+<section id="mathematical-equations">
+<h3>Mathematical Equations<a class="headerlink" href="#mathematical-equations" title="Link to this heading"></a></h3>
+<p>Use LaTeX syntax for equations:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>The peak area <span class="na">:math:</span><span class="nv">`A`</span> is calculated as:
+
+<span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+
+   A = \int_{t_1}^{t_2} h(t) \, dt
+
+where <span class="na">:math:</span><span class="nv">`h(t)`</span> is the absorbance at time <span class="na">:math:</span><span class="nv">`t`</span>.
+</pre></div>
+</div>
+<p>This renders as:</p>
+<p>The peak area <span class="math notranslate nohighlight">\(A\)</span> is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[A = \int_{t_1}^{t_2} h(t) \, dt\]</div>
+<p>where <span class="math notranslate nohighlight">\(h(t)\)</span> is the absorbance at time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+</section>
+<section id="cross-references">
+<h3>Cross-References<a class="headerlink" href="#cross-references" title="Link to this heading"></a></h3>
+<p>Link between documentation pages:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span># Link to another page
+See <span class="na">:doc:</span><span class="nv">`elabftw_integration`</span> for details.
+
+# Link to a section
+See <span class="na">:ref:</span><span class="nv">`writing-docstrings`</span> for examples.
+
+# Link to a function
+Use <span class="na">:func:</span><span class="nv">`hplc_analysis.find_peaks`</span> to detect peaks.
+
+# Link to a module
+See <span class="na">:mod:</span><span class="nv">`hplc_analysis`</span> for all analysis functions.
+</pre></div>
+</div>
+</section>
+<section id="auto-generated-api-docs">
+<h3>Auto-Generated API Docs<a class="headerlink" href="#auto-generated-api-docs" title="Link to this heading"></a></h3>
+<p>Sphinx can automatically generate API documentation from docstrings:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">API Reference</span>
+<span class="gh">=============</span>
+
+<span class="gh">HPLC Analysis Module</span>
+<span class="gh">--------------------</span>
+
+<span class="p">..</span> <span class="ow">automodule</span><span class="p">::</span> hplc_analysis
+   <span class="nc">:members:</span>
+   <span class="nc">:undoc-members:</span>
+   <span class="nc">:show-inheritance:</span>
+</pre></div>
+</div>
+<p>This creates a complete API reference from your docstrings.</p>
+</section>
+</section>
+<section id="organizing-documentation">
+<h2>Organizing Documentation<a class="headerlink" href="#organizing-documentation" title="Link to this heading"></a></h2>
+<section id="structure-for-small-projects">
+<h3>Structure for Small Projects<a class="headerlink" href="#structure-for-small-projects" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>docs/source/
+├── index.rst              # Homepage with quick start
+├── installation.rst       # How to install
+├── tutorial.rst           # Step-by-step guide
+├── api.rst                # Auto-generated API docs
+└── elabftw.rst           # eLabFTW integration guide
+</pre></div>
+</div>
+</section>
+<section id="structure-for-larger-projects">
+<h3>Structure for Larger Projects<a class="headerlink" href="#structure-for-larger-projects" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>docs/source/
+├── index.rst
+├── getting_started/
+│   ├── installation.rst
+│   ├── quickstart.rst
+│   └── configuration.rst
+├── user_guide/
+│   ├── basic_usage.rst
+│   ├── advanced_topics.rst
+│   └── elabftw_integration.rst
+├── api_reference/
+│   ├── analysis.rst
+│   ├── visualization.rst
+│   └── utilities.rst
+└── developer_guide/
+    ├── contributing.rst
+    ├── testing.rst
+    └── release_process.rst
+</pre></div>
+</div>
+<p><strong>For beginners</strong>: Start with the simple structure. Reorganize as you grow.</p>
+</section>
+</section>
+<section id="elabftw-integration-in-docs">
+<h2>eLabFTW Integration in Docs<a class="headerlink" href="#elabftw-integration-in-docs" title="Link to this heading"></a></h2>
+<section id="show-complete-workflows">
+<h3>Show Complete Workflows<a class="headerlink" href="#show-complete-workflows" title="Link to this heading"></a></h3>
+<p>Document the full cycle:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Laboratory Workflow</span>
+<span class="gh">===================</span>
+
+<span class="gh">Before Running Analysis</span>
+<span class="gh">-----------------------</span>
+
+<span class="m">1.</span> Create eLabFTW experiment record
+<span class="m">2.</span> Document method and parameters
+<span class="m">3.</span> Upload raw data files
+<span class="m">4.</span> Note experiment ID for reference
+
+<span class="gh">During Analysis</span>
+<span class="gh">---------------</span>
+
+<span class="m">1.</span> Reference eLabFTW ID in code header
+<span class="m">2.</span> Load data with eLabFTW references
+<span class="m">3.</span> Run analysis with documented parameters
+<span class="m">4.</span> Save intermediate results
+
+<span class="gh">After Analysis</span>
+<span class="gh">--------------</span>
+
+<span class="m">1.</span> Upload results to eLabFTW
+<span class="m">2.</span> Link GitHub commit for traceability
+<span class="m">3.</span> Document analysis parameters used
+<span class="m">4.</span> Review and validate results
+</pre></div>
+</div>
+</section>
+<section id="provide-examples-with-elabftw-links">
+<h3>Provide Examples with eLabFTW Links<a class="headerlink" href="#provide-examples-with-elabftw-links" title="Link to this heading"></a></h3>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Example Analysis</span>
+<span class="gh">================</span>
+
+This example analyzes HPLC data from eLabFTW experiment #67890:
+
+https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890
+
+The experiment used equipment EQUIP-12345 (HPLC-UV system):
+
+https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345
+
+Method details, calibration data, and quality control results
+are documented in the eLabFTW records.
+</pre></div>
+</div>
+</section>
+<section id="document-where-things-go">
+<h3>Document Where Things Go<a class="headerlink" href="#document-where-things-go" title="Link to this heading"></a></h3>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Data Organization</span>
+<span class="gh">=================</span>
+
+<span class="p">..</span> <span class="ow">list-table</span><span class="p">::</span>
+   <span class="nc">:widths:</span> 30 35 35
+   <span class="nc">:header-rows:</span> 1
+
+   <span class="m">*</span> - Data Type
+     <span class="m">-</span> Store In
+     <span class="m">-</span> Notes
+   <span class="m">*</span> - Raw instrument data
+     <span class="m">-</span> eLabFTW (attached to experiment)
+     <span class="m">-</span> Original files, unmodified
+   <span class="m">*</span> - Analysis scripts
+     <span class="m">-</span> GitHub repository
+     <span class="m">-</span> Version controlled
+   <span class="m">*</span> - Processed results
+     <span class="m">-</span> eLabFTW (attached to experiment)
+     <span class="m">-</span> With GitHub commit reference
+   <span class="m">*</span> - Protocols/methods
+     <span class="m">-</span> eLabFTW (database)
+     <span class="m">-</span> Shared across experiments
+   <span class="m">*</span> - Small test data
+     <span class="m">-</span> GitHub (data/ folder)
+     <span class="m">-</span> For examples and testing
+</pre></div>
+</div>
+</section>
+</section>
+<section id="version-control-for-documentation">
+<h2>Version Control for Documentation<a class="headerlink" href="#version-control-for-documentation" title="Link to this heading"></a></h2>
+<p>Documentation needs version control too:</p>
+<section id="commit-documentation-changes">
+<h3>Commit Documentation Changes<a class="headerlink" href="#commit-documentation-changes" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good commit messages for docs</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add HPLC analysis tutorial with examples&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Fix broken links in API reference&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update installation instructions for Windows&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="keep-docs-synchronized">
+<h3>Keep Docs Synchronized<a class="headerlink" href="#keep-docs-synchronized" title="Link to this heading"></a></h3>
+<p>When changing code:</p>
+<ol class="arabic simple">
+<li><p><strong>Update docstrings</strong> if function signatures change</p></li>
+<li><p><strong>Update examples</strong> if usage patterns change</p></li>
+<li><p><strong>Update tutorials</strong> if workflows change</p></li>
+<li><p><strong>Check cross-references</strong> still work</p></li>
+<li><p><strong>Rebuild docs</strong> to catch issues</p></li>
+</ol>
+</section>
+<section id="version-documentation">
+<h3>Version Documentation<a class="headerlink" href="#version-documentation" title="Link to this heading"></a></h3>
+<p>For releases, document the version:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In docs/source/conf.py</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span>  <span class="c1"># Short X.Y version</span>
+<span class="n">release</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>  <span class="c1"># Full version</span>
+</pre></div>
+</div>
+<p>Tag releases in Git:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Version 1.0.0 release&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.0.0
+</pre></div>
+</div>
+</section>
+</section>
+<section id="common-mistakes-to-avoid">
+<h2>Common Mistakes to Avoid<a class="headerlink" href="#common-mistakes-to-avoid" title="Link to this heading"></a></h2>
+<p>❌ <strong>No Documentation</strong></p>
+<p>“The code is self-documenting” - No, it’s not.</p>
+<p>✅ <strong>Fix</strong>: Start with minimal docstrings. Expand gradually.</p>
+<p>❌ <strong>Outdated Documentation</strong></p>
+<p>Documentation describes old version of code.</p>
+<p>✅ <strong>Fix</strong>: Update docs when changing code. Test examples.</p>
+<p>❌ <strong>Assuming Too Much Knowledge</strong></p>
+<p>“Obviously you need to preprocess the data first…”</p>
+<p>✅ <strong>Fix</strong>: Write for beginners. Explain each step.</p>
+<p>❌ <strong>No Examples</strong></p>
+<p>Just parameter lists without showing usage.</p>
+<p>✅ <strong>Fix</strong>: Add at least one working example per function.</p>
+<p>❌ <strong>Broken Links</strong></p>
+<p>Cross-references point to nonexistent pages.</p>
+<p>✅ <strong>Fix</strong>: Build docs locally and check for warnings.</p>
+<p>❌ <strong>Inconsistent Style</strong></p>
+<p>Random mix of formatting and organization.</p>
+<p>✅ <strong>Fix</strong>: Follow this template. Be consistent.</p>
+</section>
+<section id="tools-and-resources">
+<h2>Tools and Resources<a class="headerlink" href="#tools-and-resources" title="Link to this heading"></a></h2>
+<section id="documentation-tools">
+<h3>Documentation Tools<a class="headerlink" href="#documentation-tools" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Sphinx</strong>: Main documentation generator</p></li>
+<li><p><strong>sphinx-rtd-theme</strong>: Professional Read the Docs theme</p></li>
+<li><p><strong>napoleon</strong>: NumPy docstring support</p></li>
+<li><p><strong>autodoc</strong>: Auto-generate API docs</p></li>
+<li><p><strong>doctest</strong>: Test code examples in docstrings</p></li>
+</ul>
+</section>
+<section id="checking-documentation">
+<h3>Checking Documentation<a class="headerlink" href="#checking-documentation" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build and check for warnings</span>
+<span class="nb">cd</span><span class="w"> </span>docs
+make<span class="w"> </span>clean
+make<span class="w"> </span>html
+
+<span class="c1"># Check for broken links</span>
+make<span class="w"> </span>linkcheck
+
+<span class="c1"># Spell check (if aspell installed)</span>
+find<span class="w"> </span><span class="nb">source</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.rst&quot;</span><span class="w"> </span>-exec<span class="w"> </span>aspell<span class="w"> </span>check<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</pre></div>
+</div>
+</section>
+<section id="learning-resources">
+<h3>Learning Resources<a class="headerlink" href="#learning-resources" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/">Sphinx Documentation</a></p></li>
+<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/">NumPy Docstring Guide</a></p></li>
+<li><p><a class="reference external" href="https://www.writethedocs.org/">Write the Docs</a></p></li>
+<li><p><a class="reference external" href="https://www.divio.com/blog/documentation/">Documentation Guide</a></p></li>
+</ul>
+</section>
+</section>
+<section id="example-documentation-checklist">
+<h2>Example Documentation Checklist<a class="headerlink" href="#example-documentation-checklist" title="Link to this heading"></a></h2>
+<p>Use this checklist for your documentation:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Code Documentation
+==================
+
+[ ] All functions have docstrings
+[ ] Docstrings include Parameters and Returns
+[ ] At least one example per main function
+[ ] Type hints on function signatures
+[ ] Complex logic has inline comments
+[ ] eLabFTW references where applicable
+
+User Guide
+==========
+
+[ ] Installation instructions included
+[ ] Quick start example provided
+[ ] Complete workflow example shown
+[ ] eLabFTW integration explained
+[ ] Troubleshooting section exists
+[ ] Links to external resources
+
+API Reference
+=============
+
+[ ] Auto-generated from docstrings
+[ ] All modules documented
+[ ] Cross-references work
+[ ] Examples build without errors
+
+Build and Deploy
+================
+
+[ ] Builds locally without errors
+[ ] No broken links (linkcheck passes)
+[ ] Equations render correctly
+[ ] GitHub Actions workflow configured
+[ ] Deploys to GitHub Pages
+</pre></div>
+</div>
+</section>
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h2>
+<p>If you’re stuck on documentation:</p>
+<ol class="arabic simple">
+<li><p><strong>Check existing examples</strong> in this repository</p></li>
+<li><p><strong>Search Sphinx documentation</strong> for specific features</p></li>
+<li><p><strong>Look at similar projects</strong> (NumPy, SciPy, pandas)</p></li>
+<li><p><strong>Ask in discussions</strong> on GitHub</p></li>
+<li><p><strong>Start simple</strong> and improve iteratively</p></li>
+</ol>
+<p>Remember: <strong>Perfect documentation doesn’t exist</strong>. Good enough documentation that actually exists is infinitely better than perfect documentation that never gets written.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Scientific Python Documentation with eLabFTW Integration</span></a> - Main documentation</p></li>
+<li><p><a class="reference internal" href="elabftw_integration.html"><span class="doc">eLabFTW Integration Guide</span></a> - eLabFTW integration guide</p></li>
+<li><p><a class="reference internal" href="index.html#module-hplc_analysis" title="hplc_analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hplc_analysis</span></code></a> - Example code with complete documentation</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="elabftw_integration.html" class="btn btn-neutral float-left" title="eLabFTW Integration Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, B-Wie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

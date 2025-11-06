@@ -1,0 +1,689 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eLabFTW Integration Guide &mdash; Scientific Python Documentation with eLabFTW 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation Best Practices" href="best_practices.html" />
+    <link rel="prev" title="Scientific Python Documentation with eLabFTW Integration" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Scientific Python Documentation with eLabFTW
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">eLabFTW Integration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-elabftw">What is eLabFTW?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-integrate-elabftw-with-github">Why Integrate eLabFTW with GitHub?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-integrated-workflow">The Integrated Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-document-experiment-in-elabftw">Step 1: Document Experiment in eLabFTW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-collect-data-with-elabftw-references">Step 2: Collect Data with eLabFTW References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-write-analysis-code-with-references">Step 3: Write Analysis Code with References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-document-analysis-in-sphinx">Step 4: Document Analysis in Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-return-results-to-elabftw">Step 5: Return Results to eLabFTW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#persistent-references-ids-vs-urls">Persistent References: IDs vs URLs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#experiment-ids">Experiment IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database-item-ids">Database Item IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#permanent-urls">Permanent URLs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example-complete-workflow">Example: Complete Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-integration-advanced">API Integration (Advanced)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reading-data">Reading Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uploading-results">Uploading Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#security-considerations">Security Considerations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#public-vs-private-repositories">Public vs Private Repositories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-not-to-include-in-github">What NOT to Include in GitHub</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#compliance-and-regulations">Compliance and Regulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fda-21-cfr-part-11">FDA 21 CFR Part 11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#good-laboratory-practice-glp">Good Laboratory Practice (GLP)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-for-lab-implementation">Tips for Lab Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lab-specific-guidelines">Lab-Specific Guidelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-lab-template">Example Lab Template</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#further-resources">Further Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#elabftw-documentation">eLabFTW Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#related-tools">Related Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Documentation Best Practices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Scientific Python Documentation with eLabFTW</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">eLabFTW Integration Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/elabftw_integration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="elabftw-integration-guide">
+<h1>eLabFTW Integration Guide<a class="headerlink" href="#elabftw-integration-guide" title="Link to this heading"></a></h1>
+<p>This guide explains how to integrate eLabFTW (electronic lab notebook) with your Python analysis code and documentation to create a complete, traceable workflow from experiment to results.</p>
+<section id="what-is-elabftw">
+<h2>What is eLabFTW?<a class="headerlink" href="#what-is-elabftw" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://www.elabftw.net/">eLabFTW</a> is a free, open-source electronic lab notebook (ELN) designed specifically for research laboratories. It provides:</p>
+<ul class="simple">
+<li><p><strong>Experiment documentation</strong>: Record protocols, observations, and results</p></li>
+<li><p><strong>Equipment database</strong>: Track instruments, specifications, and maintenance</p></li>
+<li><p><strong>Data management</strong>: Store and organize research data with versioning</p></li>
+<li><p><strong>Collaboration tools</strong>: Share experiments with team members</p></li>
+<li><p><strong>Compliance features</strong>: Meet FDA 21 CFR Part 11, GLP, and other regulations</p></li>
+<li><p><strong>API access</strong>: Integrate with other tools and workflows</p></li>
+</ul>
+<p>Unlike generic lab notebooks, eLabFTW is designed by scientists for scientists, with features specifically for research reproducibility and traceability.</p>
+</section>
+<section id="why-integrate-elabftw-with-github">
+<h2>Why Integrate eLabFTW with GitHub?<a class="headerlink" href="#why-integrate-elabftw-with-github" title="Link to this heading"></a></h2>
+<p>Combining eLabFTW with GitHub creates a powerful research workflow:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Complementary Strengths</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 35.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspect</p></th>
+<th class="head"><p>eLabFTW Handles</p></th>
+<th class="head"><p>GitHub Handles</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Data Storage</p></td>
+<td><p>Raw experimental data, images</p></td>
+<td><p>Code, small test datasets</p></td>
+</tr>
+<tr class="row-odd"><td><p>Documentation</p></td>
+<td><p>Protocols, observations, notes</p></td>
+<td><p>Code documentation, APIs</p></td>
+</tr>
+<tr class="row-even"><td><p>Version Control</p></td>
+<td><p>Data versioning, timestamps</p></td>
+<td><p>Code versioning, branches</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sharing</p></td>
+<td><p>Within lab team, with stamp</p></td>
+<td><p>Open source, public repos</p></td>
+</tr>
+<tr class="row-even"><td><p>Compliance</p></td>
+<td><p>Timestamps, signatures, audit logs</p></td>
+<td><p>Code review, change tracking</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Principle</strong>: Use each tool for what it does best, and link them together.</p>
+</section>
+<section id="the-integrated-workflow">
+<h2>The Integrated Workflow<a class="headerlink" href="#the-integrated-workflow" title="Link to this heading"></a></h2>
+<section id="step-1-document-experiment-in-elabftw">
+<h3>Step 1: Document Experiment in eLabFTW<a class="headerlink" href="#step-1-document-experiment-in-elabftw" title="Link to this heading"></a></h3>
+<p>Before running an experiment:</p>
+<ol class="arabic simple">
+<li><p><strong>Create experiment record</strong> in eLabFTW</p>
+<ul class="simple">
+<li><p>Document the protocol and method</p></li>
+<li><p>List equipment and materials needed</p></li>
+<li><p>Note any deviations from standard procedures</p></li>
+</ul>
+</li>
+<li><p><strong>Link equipment records</strong></p>
+<ul class="simple">
+<li><p>Reference instruments from the database</p></li>
+<li><p>Include calibration information</p></li>
+<li><p>Note any maintenance or issues</p></li>
+</ul>
+</li>
+<li><p><strong>Note the experiment ID</strong></p>
+<ul class="simple">
+<li><p>eLabFTW assigns a unique ID (e.g., #67890)</p></li>
+<li><p>This becomes your persistent reference</p></li>
+<li><p>Use it in all related files and analyses</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Example eLabFTW Experiment Entry</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Title</span><span class="p">:</span> <span class="n">HPLC</span> <span class="n">Analysis</span> <span class="n">of</span> <span class="n">Compound</span> <span class="n">Mixture</span> <span class="n">A</span>
+
+<span class="n">Protocol</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Column</span><span class="p">:</span> <span class="n">C18</span><span class="p">,</span> <span class="mi">250</span><span class="n">x4</span><span class="mf">.6</span><span class="n">mm</span> <span class="p">(</span><span class="n">Equipment</span> <span class="n">DB</span> <span class="n">ID</span><span class="p">:</span> <span class="n">EQUIP</span><span class="o">-</span><span class="mi">12345</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">Mobile</span> <span class="n">phase</span><span class="p">:</span> <span class="mi">60</span><span class="o">%</span> <span class="n">MeOH</span> <span class="o">/</span> <span class="mi">40</span><span class="o">%</span> <span class="n">Water</span>
+<span class="o">-</span> <span class="n">Flow</span> <span class="n">rate</span><span class="p">:</span> <span class="mf">1.0</span> <span class="n">mL</span><span class="o">/</span><span class="nb">min</span>
+<span class="o">-</span> <span class="n">Detection</span><span class="p">:</span> <span class="n">UV</span> <span class="mi">254</span><span class="n">nm</span>
+<span class="o">-</span> <span class="n">Injection</span> <span class="n">volume</span><span class="p">:</span> <span class="mi">20</span> <span class="n">µL</span>
+
+<span class="n">Expected</span> <span class="n">peaks</span><span class="p">:</span> <span class="mi">2</span> <span class="p">(</span><span class="n">compound</span> <span class="n">A</span> <span class="n">at</span> <span class="o">~</span><span class="mi">2</span> <span class="nb">min</span><span class="p">,</span> <span class="n">compound</span> <span class="n">B</span> <span class="n">at</span> <span class="o">~</span><span class="mi">6</span> <span class="nb">min</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="step-2-collect-data-with-elabftw-references">
+<h3>Step 2: Collect Data with eLabFTW References<a class="headerlink" href="#step-2-collect-data-with-elabftw-references" title="Link to this heading"></a></h3>
+<p>When collecting data from instruments:</p>
+<ol class="arabic simple">
+<li><p><strong>Include eLabFTW ID in file headers</strong></p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># HPLC Chromatogram Data
+# Experiment: eLabFTW #67890
+# URL: https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890
+# Equipment: HPLC-UV (eLabFTW DB ID: EQUIP-12345)
+# Date: 2025-01-15
+# Analyst: Jane Doe
+
+# Time(min)    Absorbance(mAU)
+0.00    2.1
+0.10    2.3
+...
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Upload raw data to eLabFTW</strong></p>
+<ul class="simple">
+<li><p>Attach instrument output files to experiment</p></li>
+<li><p>Keep original file names with timestamps</p></li>
+<li><p>Document any data processing steps</p></li>
+</ul>
+</li>
+<li><p><strong>Record observations</strong></p>
+<ul class="simple">
+<li><p>Note any unusual results</p></li>
+<li><p>Document troubleshooting steps</p></li>
+<li><p>Link to equipment maintenance if issues arise</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="step-3-write-analysis-code-with-references">
+<h3>Step 3: Write Analysis Code with References<a class="headerlink" href="#step-3-write-analysis-code-with-references" title="Link to this heading"></a></h3>
+<p>Your Python analysis scripts should reference eLabFTW:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">HPLC Chromatogram Analysis</span>
+
+<span class="sd">This script analyzes HPLC data from experiment #67890.</span>
+
+<span class="sd">eLabFTW References</span>
+<span class="sd">------------------</span>
+<span class="sd">Experiment: https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890</span>
+<span class="sd">Equipment: https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345</span>
+
+<span class="sd">Method details, raw data, and protocols are stored in eLabFTW.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_chromatogram</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load HPLC data from file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filepath : str</span>
+<span class="sd">        Path to data file. File should include eLabFTW experiment</span>
+<span class="sd">        reference in header for traceability.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Always reference the eLabFTW experiment ID in data files:</span>
+<span class="sd">    # Experiment: eLabFTW #67890</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Implementation here</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>Best Practices for Code Comments</strong>:</p>
+<ul class="simple">
+<li><p>Include eLabFTW URL at the top of analysis scripts</p></li>
+<li><p>Reference equipment IDs when method-specific</p></li>
+<li><p>Link to protocols for parameter explanations</p></li>
+<li><p>Document any deviations from eLabFTW method</p></li>
+</ul>
+</section>
+<section id="step-4-document-analysis-in-sphinx">
+<h3>Step 4: Document Analysis in Sphinx<a class="headerlink" href="#step-4-document-analysis-in-sphinx" title="Link to this heading"></a></h3>
+<p>In your Sphinx documentation, link to eLabFTW records:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">HPLC Analysis Example</span>
+<span class="gh">=====================</span>
+
+This example analyzes data from eLabFTW experiment #67890:
+https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890
+
+<span class="gh">Method</span>
+<span class="gh">------</span>
+
+The HPLC method is documented in eLabFTW. Key parameters:
+
+<span class="m">*</span> <span class="gs">**Equipment**</span>: HPLC-UV system (eLabFTW DB: EQUIP-12345)
+<span class="m">*</span> <span class="gs">**Column**</span>: C18, 250x4.6mm
+<span class="m">*</span> <span class="gs">**Mobile phase**</span>: See eLabFTW for complete composition
+<span class="m">*</span> <span class="gs">**Flow rate**</span>: 1.0 mL/min
+
+For complete method details, calibration information, and quality
+control data, refer to the eLabFTW equipment record:
+https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345
+</pre></div>
+</div>
+</section>
+<section id="step-5-return-results-to-elabftw">
+<h3>Step 5: Return Results to eLabFTW<a class="headerlink" href="#step-5-return-results-to-elabftw" title="Link to this heading"></a></h3>
+<p>After completing analysis:</p>
+<ol class="arabic simple">
+<li><p><strong>Upload results files</strong></p>
+<ul class="simple">
+<li><p>CSV/Excel files with processed data</p></li>
+<li><p>Figures and plots</p></li>
+<li><p>Statistical summaries</p></li>
+</ul>
+</li>
+<li><p><strong>Link GitHub commit</strong></p>
+<ul class="simple">
+<li><p>Include GitHub commit hash in eLabFTW</p></li>
+<li><p>Link to specific code version used</p></li>
+<li><p>Ensures reproducibility</p></li>
+</ul>
+</li>
+<li><p><strong>Document analysis parameters</strong></p>
+<ul class="simple">
+<li><p>Threshold values used</p></li>
+<li><p>Integration parameters</p></li>
+<li><p>Any manual corrections</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Example eLabFTW Results Entry</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Analysis</span> <span class="n">Results</span> <span class="p">(</span><span class="mi">2025</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span>
+
+<span class="n">Code</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">repo</span><span class="o">/</span><span class="n">commit</span><span class="o">/</span><span class="n">abc123def</span>
+<span class="n">Script</span><span class="p">:</span> <span class="n">src</span><span class="o">/</span><span class="n">hplc_analysis</span><span class="o">.</span><span class="n">py</span>
+
+<span class="n">Results</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Peak</span> <span class="mi">1</span><span class="p">:</span> <span class="n">RT</span> <span class="o">=</span> <span class="mf">2.10</span> <span class="nb">min</span><span class="p">,</span> <span class="n">Area</span> <span class="o">=</span> <span class="mf">101.2</span> <span class="n">mAU·min</span> <span class="p">(</span><span class="n">Compound</span> <span class="n">A</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">Peak</span> <span class="mi">2</span><span class="p">:</span> <span class="n">RT</span> <span class="o">=</span> <span class="mf">5.70</span> <span class="nb">min</span><span class="p">,</span> <span class="n">Area</span> <span class="o">=</span> <span class="mf">139.0</span> <span class="n">mAU·min</span> <span class="p">(</span><span class="n">Compound</span> <span class="n">B</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">Resolution</span><span class="p">:</span> <span class="n">Rs</span> <span class="o">=</span> <span class="mf">1.71</span> <span class="p">(</span><span class="n">baseline</span> <span class="n">separation</span><span class="p">)</span>
+
+<span class="n">Analysis</span> <span class="n">parameters</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Peak</span> <span class="n">threshold</span><span class="p">:</span> <span class="mf">50.0</span> <span class="n">mAU</span>
+<span class="o">-</span> <span class="n">Baseline</span><span class="p">:</span> <span class="mf">2.4</span> <span class="n">mAU</span>
+<span class="o">-</span> <span class="n">Integration</span><span class="p">:</span> <span class="n">Trapezoidal</span> <span class="n">method</span>
+
+<span class="n">Files</span> <span class="n">attached</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">chromatogram_plot</span><span class="o">.</span><span class="n">png</span>
+<span class="o">-</span> <span class="n">peak_table</span><span class="o">.</span><span class="n">csv</span>
+<span class="o">-</span> <span class="n">analysis_summary</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="persistent-references-ids-vs-urls">
+<h2>Persistent References: IDs vs URLs<a class="headerlink" href="#persistent-references-ids-vs-urls" title="Link to this heading"></a></h2>
+<p>eLabFTW provides two types of references:</p>
+<section id="experiment-ids">
+<h3>Experiment IDs<a class="headerlink" href="#experiment-ids" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Format</strong>: Integer (e.g., 67890)</p></li>
+<li><p><strong>Short reference</strong>: “#67890”</p></li>
+<li><p><strong>URL</strong>: <code class="docutils literal notranslate"><span class="pre">https://your-instance.org/experiments.php?mode=view&amp;id=67890</span></code></p></li>
+</ul>
+<p><strong>Use when</strong>: Referencing within your organization, brief mentions in code comments</p>
+</section>
+<section id="database-item-ids">
+<h3>Database Item IDs<a class="headerlink" href="#database-item-ids" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Format</strong>: Integer with prefix (e.g., EQUIP-12345)</p></li>
+<li><p><strong>Categories</strong>: Equipment, protocols, resources</p></li>
+<li><p><strong>URL</strong>: <code class="docutils literal notranslate"><span class="pre">https://your-instance.org/database.php?mode=view&amp;id=12345</span></code></p></li>
+</ul>
+<p><strong>Use when</strong>: Referencing equipment, standard protocols, shared resources</p>
+</section>
+<section id="permanent-urls">
+<h3>Permanent URLs<a class="headerlink" href="#permanent-urls" title="Link to this heading"></a></h3>
+<p>eLabFTW IDs are permanent and survive:</p>
+<ul class="simple">
+<li><p>✅ Server migrations</p></li>
+<li><p>✅ Database backups and restores</p></li>
+<li><p>✅ File reorganizations</p></li>
+<li><p>✅ Archiving and long-term storage</p></li>
+</ul>
+<p><strong>Best practice</strong>: Always use full URLs in documentation and data files for maximum permanence.</p>
+</section>
+</section>
+<section id="example-complete-workflow">
+<h2>Example: Complete Workflow<a class="headerlink" href="#example-complete-workflow" title="Link to this heading"></a></h2>
+<p>Here’s a complete example showing the integrated workflow:</p>
+<ol class="arabic">
+<li><p><strong>eLabFTW Experiment #67890</strong></p>
+<p>Protocol documents HPLC method and uploads raw data file
+<code class="docutils literal notranslate"><span class="pre">sample_hplc_chromatogram.txt</span></code></p>
+</li>
+<li><p><strong>GitHub Repository</strong></p>
+<p>Contains analysis code in <code class="docutils literal notranslate"><span class="pre">src/hplc_analysis.py</span></code> with eLabFTW references</p>
+</li>
+<li><p><strong>Data File</strong> (<code class="docutils literal notranslate"><span class="pre">data/sample_hplc_chromatogram.txt</span></code>)</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># HPLC Chromatogram Data
+# Experiment: eLabFTW #67890
+# URL: https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890
+# Equipment: HPLC-UV (eLabFTW ID: EQUIP-12345)
+...data follows...
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Python Script</strong> (<code class="docutils literal notranslate"><span class="pre">src/hplc_analysis.py</span></code>)</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">HPLC Analysis</span>
+
+<span class="sd">eLabFTW Experiment: https://your-instance.org/experiments.php?mode=view&amp;id=67890</span>
+<span class="sd">eLabFTW Equipment: https://your-instance.org/database.php?mode=view&amp;id=EQUIP-12345</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">analyze_chromatogram</span><span class="p">(</span><span class="s1">&#39;data/sample_hplc_chromatogram.txt&#39;</span><span class="p">)</span>
+<span class="c1"># Analysis code...</span>
+</pre></div>
+</div>
+<ol class="arabic" start="5">
+<li><p><strong>Results Back to eLabFTW</strong></p>
+<p>Upload results with link: <code class="docutils literal notranslate"><span class="pre">GitHub</span> <span class="pre">commit:</span> <span class="pre">abc123def456</span></code></p>
+</li>
+</ol>
+<p>This creates a complete, bidirectional link between experiment and analysis.</p>
+</section>
+<section id="api-integration-advanced">
+<h2>API Integration (Advanced)<a class="headerlink" href="#api-integration-advanced" title="Link to this heading"></a></h2>
+<p>For advanced users, eLabFTW provides a REST API for programmatic access:</p>
+<section id="reading-data">
+<h3>Reading Data<a class="headerlink" href="#reading-data" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># Authentication</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;your_api_key_here&quot;</span>  <span class="c1"># From eLabFTW user account</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+<span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://your-elabftw-instance.org/api/v2&quot;</span>
+
+<span class="c1"># Get experiment data</span>
+<span class="n">exp_id</span> <span class="o">=</span> <span class="mi">67890</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/experiments/</span><span class="si">{</span><span class="n">exp_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="n">experiment</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Title: </span><span class="si">{</span><span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date: </span><span class="si">{</span><span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="uploading-results">
+<h3>Uploading Results<a class="headerlink" href="#uploading-results" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Upload a file to experiment</span>
+<span class="n">exp_id</span> <span class="o">=</span> <span class="mi">67890</span>
+<span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;results.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/experiments/</span><span class="si">{</span><span class="n">exp_id</span><span class="si">}</span><span class="s2">/uploads&quot;</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+    <span class="n">files</span><span class="o">=</span><span class="n">files</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: Store API keys securely, never commit them to Git repositories. Use environment variables or secure configuration files.</p>
+</section>
+</section>
+<section id="security-considerations">
+<h2>Security Considerations<a class="headerlink" href="#security-considerations" title="Link to this heading"></a></h2>
+<p>When integrating eLabFTW and GitHub:</p>
+<section id="public-vs-private-repositories">
+<h3>Public vs Private Repositories<a class="headerlink" href="#public-vs-private-repositories" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Public repos</strong>: Share code, NOT sensitive data</p></li>
+<li><p><strong>Private repos</strong>: Can include more details, but still avoid patient data</p></li>
+<li><p><strong>eLabFTW</strong>: Keep all sensitive experimental data here with access controls</p></li>
+</ul>
+</section>
+<section id="what-not-to-include-in-github">
+<h3>What NOT to Include in GitHub<a class="headerlink" href="#what-not-to-include-in-github" title="Link to this heading"></a></h3>
+<p>❌ <strong>Never commit</strong>:</p>
+<ul class="simple">
+<li><p>Patient/subject identifiable information</p></li>
+<li><p>Proprietary compound structures</p></li>
+<li><p>Unpublished sensitive results</p></li>
+<li><p>eLabFTW API keys or passwords</p></li>
+<li><p>Complete raw data sets (link to eLabFTW instead)</p></li>
+</ul>
+<p>✅ <strong>Safe to include</strong>:</p>
+<ul class="simple">
+<li><p>Analysis code and scripts</p></li>
+<li><p>Documentation and examples</p></li>
+<li><p>Small test/demo datasets</p></li>
+<li><p>Public protocols and methods</p></li>
+<li><p>Links to eLabFTW records (if instance is internal)</p></li>
+</ul>
+</section>
+</section>
+<section id="compliance-and-regulations">
+<h2>Compliance and Regulations<a class="headerlink" href="#compliance-and-regulations" title="Link to this heading"></a></h2>
+<p>This workflow supports regulatory compliance:</p>
+<section id="fda-21-cfr-part-11">
+<h3>FDA 21 CFR Part 11<a class="headerlink" href="#fda-21-cfr-part-11" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Electronic records</strong>: eLabFTW provides timestamps and signatures</p></li>
+<li><p><strong>Audit trails</strong>: Both eLabFTW and Git track all changes</p></li>
+<li><p><strong>Access controls</strong>: eLabFTW manages user permissions</p></li>
+<li><p><strong>Data integrity</strong>: Version control prevents unauthorized changes</p></li>
+</ul>
+</section>
+<section id="good-laboratory-practice-glp">
+<h3>Good Laboratory Practice (GLP)<a class="headerlink" href="#good-laboratory-practice-glp" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Traceability</strong>: Direct links from results to raw data</p></li>
+<li><p><strong>Documentation</strong>: Complete method documentation in eLabFTW</p></li>
+<li><p><strong>Reproducibility</strong>: Code in Git + data in eLabFTW = full reproduction</p></li>
+<li><p><strong>Archives</strong>: Both systems support long-term data retention</p></li>
+</ul>
+</section>
+</section>
+<section id="tips-for-lab-implementation">
+<h2>Tips for Lab Implementation<a class="headerlink" href="#tips-for-lab-implementation" title="Link to this heading"></a></h2>
+<section id="getting-started">
+<h3>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Start small</strong>: Use for one project or technique first</p></li>
+<li><p><strong>Create templates</strong>: Make eLabFTW experiment templates for common procedures</p></li>
+<li><p><strong>Train team</strong>: Ensure everyone knows how to reference eLabFTW in code</p></li>
+<li><p><strong>Document workflow</strong>: Create lab-specific guidelines based on this template</p></li>
+<li><p><strong>Review regularly</strong>: Check that links are working and practices are followed</p></li>
+</ol>
+</section>
+<section id="lab-specific-guidelines">
+<h3>Lab-Specific Guidelines<a class="headerlink" href="#lab-specific-guidelines" title="Link to this heading"></a></h3>
+<p>Consider creating a lab document that specifies:</p>
+<ul class="simple">
+<li><p>Your eLabFTW instance URL</p></li>
+<li><p>Naming conventions for experiment IDs</p></li>
+<li><p>Where to store different data types</p></li>
+<li><p>Required metadata in data files</p></li>
+<li><p>Code review requirements</p></li>
+<li><p>Documentation standards</p></li>
+</ul>
+</section>
+<section id="example-lab-template">
+<h3>Example Lab Template<a class="headerlink" href="#example-lab-template" title="Link to this heading"></a></h3>
+<p>Create a template in your repository (<code class="docutils literal notranslate"><span class="pre">docs/lab_template.md</span></code>):</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># Lab Analysis Template</span>
+
+<span class="gu">## Before You Start</span>
+
+<span class="k">- [ ]</span> Create eLabFTW experiment record
+<span class="k">- [ ]</span> Note experiment ID: ___________
+<span class="k">- [ ]</span> Document equipment used (with DB IDs)
+<span class="k">- [ ]</span> Upload raw data files to eLabFTW
+
+<span class="gu">## During Analysis</span>
+
+<span class="k">- [ ]</span> Reference eLabFTW ID in code header
+<span class="k">- [ ]</span> Include eLabFTW URL in comments
+<span class="k">- [ ]</span> Test code with sample data
+<span class="k">- [ ]</span> Document any deviations or issues
+
+<span class="gu">## After Analysis</span>
+
+<span class="k">- [ ]</span> Upload results to eLabFTW
+<span class="k">- [ ]</span> Link GitHub commit in eLabFTW
+<span class="k">- [ ]</span> Verify all links work
+<span class="k">- [ ]</span> Archive complete workflow
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: eLabFTW URLs are long and unwieldy in code</p>
+<p><strong>Solution</strong>: Use short experiment IDs in comments with full URL in file headers</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Header: Full URL</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Experiment: https://your-instance.org/experiments.php?mode=view&amp;id=67890</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Inline comments: Short reference</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">analyze_peak</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analyze peak (see eLabFTW #67890 for method).&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>Problem</strong>: Team members forget to reference eLabFTW</p>
+<p><strong>Solution</strong>: Add checks to your code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validate_data_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check that data file contains eLabFTW reference.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>  <span class="c1"># First 500 chars</span>
+        <span class="k">if</span> <span class="s2">&quot;elabftw&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">header</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING: No eLabFTW reference found in file header&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Problem</strong>: eLabFTW instance URL changed after migration</p>
+<p><strong>Solution</strong>: Use relative paths where possible, document migration in Git</p>
+</section>
+</section>
+<section id="further-resources">
+<h2>Further Resources<a class="headerlink" href="#further-resources" title="Link to this heading"></a></h2>
+<section id="elabftw-documentation">
+<h3>eLabFTW Documentation<a class="headerlink" href="#elabftw-documentation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://doc.elabftw.net/">Official Documentation</a></p></li>
+<li><p><a class="reference external" href="https://doc.elabftw.net/api/">API Documentation</a></p></li>
+<li><p><a class="reference external" href="https://doc.elabftw.net/user-guide.html">User Guide</a></p></li>
+</ul>
+</section>
+<section id="related-tools">
+<h3>Related Tools<a class="headerlink" href="#related-tools" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a> - Can embed eLabFTW links in notebooks</p></li>
+<li><p><a class="reference external" href="https://mybinder.org/">Binder</a> - Share reproducible computational environments</p></li>
+<li><p><a class="reference external" href="https://zenodo.org/">Zenodo</a> - Archive code and data with DOIs</p></li>
+</ul>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Scientific Python Documentation with eLabFTW Integration</span></a> - Main documentation</p></li>
+<li><p><a class="reference internal" href="best_practices.html"><span class="doc">Documentation Best Practices</span></a> - Documentation best practices</p></li>
+<li><p><a class="reference internal" href="index.html#module-hplc_analysis" title="hplc_analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hplc_analysis</span></code></a> - Example analysis code with eLabFTW integration</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Scientific Python Documentation with eLabFTW Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="best_practices.html" class="btn btn-neutral float-right" title="Documentation Best Practices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, B-Wie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hplc_analysis &mdash; Scientific Python Documentation with eLabFTW 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scientific Python Documentation with eLabFTW
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../elabftw_integration.html">eLabFTW Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../best_practices.html">Documentation Best Practices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scientific Python Documentation with eLabFTW</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">hplc_analysis</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for hplc_analysis</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">HPLC Chromatogram Analysis Module</span>
+
+<span class="sd">This module provides functions for analyzing HPLC chromatogram data, including</span>
+<span class="sd">peak detection and basic chromatographic parameter calculations.</span>
+
+<span class="sd">eLabFTW Integration</span>
+<span class="sd">-------------------</span>
+<span class="sd">This analysis script is designed to work with chromatogram data exported from</span>
+<span class="sd">laboratory instruments. Link your analysis to experimental records in eLabFTW:</span>
+
+<span class="sd">* **Equipment Records**: Document instrument specifications and maintenance</span>
+<span class="sd">  (e.g., https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345)</span>
+<span class="sd">* **Experiment Records**: Reference the specific experimental run</span>
+<span class="sd">  (e.g., https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890)</span>
+
+<span class="sd">Example eLabFTW Reference in Code</span>
+<span class="sd">----------------------------------</span>
+<span class="sd">Always include eLabFTW links in your data files and analysis scripts:</span>
+
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">    # Link to eLabFTW experiment in file header or docstring</span>
+<span class="sd">    # Experiment: https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890</span>
+<span class="sd">    # Equipment: https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345</span>
+
+<span class="sd">For more information on eLabFTW integration, see the documentation.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+
+<div class="viewcode-block" id="load_chromatogram">
+<a class="viewcode-back" href="../index.html#hplc_analysis.load_chromatogram">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_chromatogram</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load HPLC chromatogram data from a text file.</span>
+<span class="sd">    </span>
+<span class="sd">    Reads a two-column text file containing time and absorbance data.</span>
+<span class="sd">    Lines starting with &#39;#&#39; are treated as comments and skipped.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filepath : str</span>
+<span class="sd">        Path to the chromatogram data file. File should contain two columns:</span>
+<span class="sd">        time (minutes) and absorbance (mAU).</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    time : np.ndarray</span>
+<span class="sd">        Time values in minutes (1D array).</span>
+<span class="sd">    absorbance : np.ndarray</span>
+<span class="sd">        Absorbance values in mAU (1D array).</span>
+<span class="sd">        </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If the specified file does not exist.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the file format is invalid or cannot be parsed.</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; time, absorbance = load_chromatogram(&#39;data/sample_hplc_chromatogram.txt&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Data points: {len(time)}&quot;)</span>
+<span class="sd">    Data points: 101</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Time range: {time[0]:.2f} - {time[-1]:.2f} min&quot;)</span>
+<span class="sd">    Time range: 0.00 - 10.00 min</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **eLabFTW Best Practice**: Include the eLabFTW experiment ID in the</span>
+<span class="sd">    chromatogram file header as a comment. This creates a permanent link</span>
+<span class="sd">    between your raw data and experimental documentation.</span>
+<span class="sd">    </span>
+<span class="sd">    Example file header::</span>
+<span class="sd">    </span>
+<span class="sd">        # Experiment: eLabFTW #67890</span>
+<span class="sd">        # Equipment: HPLC-UV (eLabFTW ID: EQUIP-12345)</span>
+<span class="sd">        # Time(min)    Absorbance(mAU)</span>
+<span class="sd">        0.00    2.1</span>
+<span class="sd">        ...</span>
+<span class="sd">    </span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    find_peaks : Detect peaks in the loaded chromatogram</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filepath_obj</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filepath_obj</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chromatogram file not found: </span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Read data, skipping comment lines</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">time_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="n">abs_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">time_val</span><span class="p">,</span> <span class="n">abs_val</span><span class="p">])</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="k">continue</span>  <span class="c1"># Skip lines that can&#39;t be converted to float</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No valid data found in </span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">data_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="find_peaks">
+<a class="viewcode-back" href="../index.html#hplc_analysis.find_peaks">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_peaks</span><span class="p">(</span><span class="n">time</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+               <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">min_distance</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detect peaks in HPLC chromatogram data.</span>
+<span class="sd">    </span>
+<span class="sd">    Identifies local maxima in the absorbance signal that exceed a specified</span>
+<span class="sd">    threshold. Returns peak properties including retention time, height, and</span>
+<span class="sd">    approximate area.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    time : np.ndarray</span>
+<span class="sd">        Time values in minutes (1D array).</span>
+<span class="sd">    absorbance : np.ndarray</span>
+<span class="sd">        Absorbance values in mAU (1D array).</span>
+<span class="sd">    threshold : float, optional</span>
+<span class="sd">        Minimum peak height in mAU to be considered a peak (default: 10.0).</span>
+<span class="sd">    min_distance : int, optional</span>
+<span class="sd">        Minimum number of data points between peaks (default: 5).</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    peaks : list of dict</span>
+<span class="sd">        List of detected peaks, where each peak is a dictionary containing:</span>
+<span class="sd">        </span>
+<span class="sd">        * &#39;retention_time&#39;: float - Peak retention time in minutes</span>
+<span class="sd">        * &#39;height&#39;: float - Peak height in mAU</span>
+<span class="sd">        * &#39;area&#39;: float - Approximate peak area (trapezoidal integration)</span>
+<span class="sd">        * &#39;index&#39;: int - Index of peak maximum in the data array</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; time, absorbance = load_chromatogram(&#39;data/sample_hplc_chromatogram.txt&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; peaks = find_peaks(time, absorbance, threshold=50.0)</span>
+<span class="sd">    &gt;&gt;&gt; for i, peak in enumerate(peaks, 1):</span>
+<span class="sd">    ...     print(f&quot;Peak {i}: RT={peak[&#39;retention_time&#39;]:.2f} min, &quot;</span>
+<span class="sd">    ...           f&quot;Height={peak[&#39;height&#39;]:.1f} mAU&quot;)</span>
+<span class="sd">    Peak 1: RT=2.10 min, Height=98.7 mAU</span>
+<span class="sd">    Peak 2: RT=5.70 min, Height=122.3 mAU</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This is a simple peak detection algorithm suitable for well-resolved peaks.</span>
+<span class="sd">    For complex chromatograms with overlapping peaks, consider using more</span>
+<span class="sd">    sophisticated peak deconvolution methods.</span>
+<span class="sd">    </span>
+<span class="sd">    The peak area is calculated using trapezoidal integration from the point</span>
+<span class="sd">    where absorbance drops below the threshold on either side of the peak.</span>
+<span class="sd">    </span>
+<span class="sd">    **Documentation in eLabFTW**: When documenting peak identification results,</span>
+<span class="sd">    include them in your eLabFTW experiment record along with:</span>
+<span class="sd">    </span>
+<span class="sd">    * Integration parameters (threshold, baseline correction)</span>
+<span class="sd">    * Peak assignments (compound identities)</span>
+<span class="sd">    * Calibration curve information for quantification</span>
+<span class="sd">    </span>
+<span class="sd">    This ensures all analysis parameters are tracked with your experimental data.</span>
+<span class="sd">    </span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    load_chromatogram : Load chromatogram data from file</span>
+<span class="sd">    calculate_resolution : Calculate peak resolution</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">peaks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">absorbance</span><span class="p">)</span>
+    
+    <span class="c1"># Find local maxima</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># Check if this point is a local maximum</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">absorbance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> 
+            <span class="n">absorbance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> 
+            <span class="n">absorbance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">):</span>
+            
+            <span class="c1"># Check minimum distance from previous peaks</span>
+            <span class="k">if</span> <span class="n">peaks</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">peaks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;index&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">min_distance</span><span class="p">:</span>
+                <span class="c1"># If new peak is higher, replace previous peak</span>
+                <span class="k">if</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">peaks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;height&#39;</span><span class="p">]:</span>
+                    <span class="n">peaks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s1">&#39;retention_time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="n">i</span>
+                    <span class="p">}</span>
+                <span class="k">continue</span>
+            
+            <span class="c1"># Calculate approximate peak area (simple integration)</span>
+            <span class="c1"># Find peak start and end (where signal drops below threshold)</span>
+            <span class="n">start_idx</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">while</span> <span class="n">start_idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">start_idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">:</span>
+                <span class="n">start_idx</span> <span class="o">-=</span> <span class="mi">1</span>
+            
+            <span class="n">end_idx</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">while</span> <span class="n">end_idx</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">end_idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">:</span>
+                <span class="n">end_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="c1"># Trapezoidal integration for area</span>
+            <span class="n">peak_area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">absorbance</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> 
+                                     <span class="n">time</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+            
+            <span class="n">peaks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;retention_time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="s1">&#39;area&#39;</span><span class="p">:</span> <span class="n">peak_area</span><span class="p">,</span>
+                <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="n">i</span>
+            <span class="p">})</span>
+    
+    <span class="k">return</span> <span class="n">peaks</span></div>
+
+
+
+<div class="viewcode-block" id="calculate_resolution">
+<a class="viewcode-back" href="../index.html#hplc_analysis.calculate_resolution">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_resolution</span><span class="p">(</span><span class="n">peak1</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">peak2</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
+                        <span class="n">time</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate chromatographic resolution between two peaks.</span>
+<span class="sd">    </span>
+<span class="sd">    Resolution (Rs) is a measure of peak separation, defined as:</span>
+<span class="sd">    </span>
+<span class="sd">    .. math::</span>
+<span class="sd">        R_s = \\frac{2(t_{R2} - t_{R1})}{w_1 + w_2}</span>
+<span class="sd">    </span>
+<span class="sd">    where :math:`t_{R1}` and :math:`t_{R2}` are retention times, and</span>
+<span class="sd">    :math:`w_1` and :math:`w_2` are peak widths at baseline.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    peak1 : dict</span>
+<span class="sd">        First peak dictionary from find_peaks().</span>
+<span class="sd">    peak2 : dict</span>
+<span class="sd">        Second peak dictionary from find_peaks().</span>
+<span class="sd">    time : np.ndarray</span>
+<span class="sd">        Time values in minutes.</span>
+<span class="sd">    absorbance : np.ndarray</span>
+<span class="sd">        Absorbance values in mAU.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    resolution : float</span>
+<span class="sd">        Resolution value. Rs &gt; 1.5 indicates baseline separation.</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; time, absorbance = load_chromatogram(&#39;data/sample_hplc_chromatogram.txt&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; peaks = find_peaks(time, absorbance, threshold=50.0)</span>
+<span class="sd">    &gt;&gt;&gt; if len(peaks) &gt;= 2:</span>
+<span class="sd">    ...     rs = calculate_resolution(peaks[0], peaks[1], time, absorbance)</span>
+<span class="sd">    ...     print(f&quot;Resolution: {rs:.2f}&quot;)</span>
+<span class="sd">    Resolution: 4.23</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This implementation estimates peak width at half height (FWHH) and converts</span>
+<span class="sd">    to baseline width using the approximation: baseline_width ≈ 2 * FWHH.</span>
+<span class="sd">    </span>
+<span class="sd">    **Quality Control**: Document resolution values in eLabFTW for method</span>
+<span class="sd">    validation and quality control. Include acceptance criteria (typically</span>
+<span class="sd">    Rs &gt; 1.5 for baseline separation).</span>
+<span class="sd">    </span>
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Snyder, L. R., Kirkland, J. J., &amp; Dolan, J. W. (2010).</span>
+<span class="sd">           Introduction to Modern Liquid Chromatography (3rd ed.). Wiley.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Calculate retention time difference</span>
+    <span class="n">rt_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">peak2</span><span class="p">[</span><span class="s1">&#39;retention_time&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">peak1</span><span class="p">[</span><span class="s1">&#39;retention_time&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># Estimate peak widths at half height</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_peak_width</span><span class="p">(</span><span class="n">peak_dict</span><span class="p">):</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">peak_dict</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span>
+        <span class="n">half_height</span> <span class="o">=</span> <span class="n">peak_dict</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.0</span>
+        
+        <span class="c1"># Find left half-height point</span>
+        <span class="n">left_idx</span> <span class="o">=</span> <span class="n">idx</span>
+        <span class="k">while</span> <span class="n">left_idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">left_idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">half_height</span><span class="p">:</span>
+            <span class="n">left_idx</span> <span class="o">-=</span> <span class="mi">1</span>
+        
+        <span class="c1"># Find right half-height point</span>
+        <span class="n">right_idx</span> <span class="o">=</span> <span class="n">idx</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">absorbance</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">right_idx</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">absorbance</span><span class="p">[</span><span class="n">right_idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">half_height</span><span class="p">:</span>
+            <span class="n">right_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="c1"># Width at half height</span>
+        <span class="n">fwhh</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="n">right_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">time</span><span class="p">[</span><span class="n">left_idx</span><span class="p">]</span>
+        <span class="c1"># Approximate baseline width (4σ for Gaussian peak)</span>
+        <span class="k">return</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">fwhh</span>
+    
+    <span class="n">w1</span> <span class="o">=</span> <span class="n">estimate_peak_width</span><span class="p">(</span><span class="n">peak1</span><span class="p">)</span>
+    <span class="n">w2</span> <span class="o">=</span> <span class="n">estimate_peak_width</span><span class="p">(</span><span class="n">peak2</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate resolution</span>
+    <span class="n">resolution</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">rt_diff</span> <span class="o">/</span> <span class="p">(</span><span class="n">w1</span> <span class="o">+</span> <span class="n">w2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">resolution</span></div>
+
+
+
+<div class="viewcode-block" id="analyze_chromatogram">
+<a class="viewcode-back" href="../index.html#hplc_analysis.analyze_chromatogram">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">analyze_chromatogram</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Complete analysis workflow for an HPLC chromatogram.</span>
+<span class="sd">    </span>
+<span class="sd">    Loads data, detects peaks, and calculates chromatographic parameters.</span>
+<span class="sd">    Provides a comprehensive summary suitable for reporting in laboratory</span>
+<span class="sd">    notebooks or publications.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filepath : str</span>
+<span class="sd">        Path to chromatogram data file.</span>
+<span class="sd">    threshold : float, optional</span>
+<span class="sd">        Peak detection threshold in mAU (default: 10.0).</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    results : dict</span>
+<span class="sd">        Analysis results containing:</span>
+<span class="sd">        </span>
+<span class="sd">        * &#39;filepath&#39;: str - Input file path</span>
+<span class="sd">        * &#39;n_points&#39;: int - Number of data points</span>
+<span class="sd">        * &#39;time_range&#39;: tuple - (min_time, max_time) in minutes</span>
+<span class="sd">        * &#39;peaks&#39;: list - Detected peaks with properties</span>
+<span class="sd">        * &#39;n_peaks&#39;: int - Number of detected peaks</span>
+<span class="sd">        * &#39;baseline&#39;: float - Estimated baseline absorbance</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; results = analyze_chromatogram(&#39;data/sample_hplc_chromatogram.txt&#39;, </span>
+<span class="sd">    ...                                threshold=50.0)</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Detected {results[&#39;n_peaks&#39;]} peaks&quot;)</span>
+<span class="sd">    Detected 2 peaks</span>
+<span class="sd">    &gt;&gt;&gt; for i, peak in enumerate(results[&#39;peaks&#39;], 1):</span>
+<span class="sd">    ...     print(f&quot;Peak {i}: RT={peak[&#39;retention_time&#39;]:.2f} min&quot;)</span>
+<span class="sd">    Peak 1: RT=2.10 min</span>
+<span class="sd">    Peak 2: RT=5.70 min</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Complete Workflow with eLabFTW**:</span>
+<span class="sd">    </span>
+<span class="sd">    1. **Before Analysis**:</span>
+<span class="sd">       </span>
+<span class="sd">       * Create experiment record in eLabFTW with method details</span>
+<span class="sd">       * Record instrument ID and calibration information</span>
+<span class="sd">       * Upload raw data file to eLabFTW</span>
+<span class="sd">    </span>
+<span class="sd">    2. **During Analysis**:</span>
+<span class="sd">       </span>
+<span class="sd">       * Run this analysis function</span>
+<span class="sd">       * Reference eLabFTW experiment ID in analysis script header</span>
+<span class="sd">    </span>
+<span class="sd">    3. **After Analysis**:</span>
+<span class="sd">       </span>
+<span class="sd">       * Export results to CSV or JSON</span>
+<span class="sd">       * Upload results to eLabFTW experiment record</span>
+<span class="sd">       * Link GitHub repository/commit in eLabFTW for code traceability</span>
+<span class="sd">       * Document any manual peak assignments or corrections</span>
+<span class="sd">    </span>
+<span class="sd">    This workflow ensures complete traceability from raw data to final results.</span>
+<span class="sd">    </span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    load_chromatogram : Load data file</span>
+<span class="sd">    find_peaks : Peak detection algorithm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Load data</span>
+    <span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span> <span class="o">=</span> <span class="n">load_chromatogram</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    
+    <span class="c1"># Detect peaks</span>
+    <span class="n">peaks</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate baseline (median of first 10% of data)</span>
+    <span class="n">n_baseline</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">absorbance</span><span class="p">)</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">absorbance</span><span class="p">[:</span><span class="n">n_baseline</span><span class="p">])</span>
+    
+    <span class="c1"># Compile results</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;filepath&#39;</span><span class="p">:</span> <span class="n">filepath</span><span class="p">,</span>
+        <span class="s1">&#39;n_points&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">time</span><span class="p">),</span>
+        <span class="s1">&#39;time_range&#39;</span><span class="p">:</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])),</span>
+        <span class="s1">&#39;peaks&#39;</span><span class="p">:</span> <span class="n">peaks</span><span class="p">,</span>
+        <span class="s1">&#39;n_peaks&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span>
+        <span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">baseline</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Example usage - analyze the sample chromatogram</span>
+    <span class="c1"># This demonstrates the complete workflow for HPLC data analysis</span>
+    
+    <span class="c1"># Reference to eLabFTW (replace with your instance URLs)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HPLC Chromatogram Analysis&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;eLabFTW Experiment: https://your-elabftw-instance.org/experiments.php?mode=view&amp;id=67890&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;eLabFTW Equipment: https://your-elabftw-instance.org/database.php?mode=view&amp;id=EQUIP-12345&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    
+    <span class="c1"># Analyze chromatogram</span>
+    <span class="n">data_file</span> <span class="o">=</span> <span class="s1">&#39;data/sample_hplc_chromatogram.txt&#39;</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">analyze_chromatogram</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+    
+    <span class="c1"># Print summary</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;filepath&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data points: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;n_points&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time range: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;time_range&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;time_range&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> min&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Baseline: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;baseline&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mAU&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Detected </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;n_peaks&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> peaks:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">peak</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;peaks&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Peak </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Retention Time: </span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;retention_time&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> min&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Height: </span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mAU&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Area: </span><span class="si">{</span><span class="n">peak</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mAU·min&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate resolution if multiple peaks found</span>
+    <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;n_peaks&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Peak Resolution:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span> <span class="o">=</span> <span class="n">load_chromatogram</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;peaks&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">rs</span> <span class="o">=</span> <span class="n">calculate_resolution</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;peaks&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;peaks&#39;</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> 
+                                     <span class="n">time</span><span class="p">,</span> <span class="n">absorbance</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peak </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> - Peak </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="si">}</span><span class="s2">: Rs = </span><span class="si">{</span><span class="n">rs</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Analysis complete. Document results in eLabFTW experiment record.&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, B-Wie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
